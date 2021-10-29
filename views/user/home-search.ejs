@@ -1,0 +1,80 @@
+<%- include('header'); -%>
+        <!-- Page content-->
+        <div class="card-header3">
+            <h1>
+                Resultados en <%= municipioDeseado %>
+            </h1>
+            <p>
+                Precio: $<%= minimo %> - $<%= maximo %>
+            </p>
+        </div>
+        <div class="container">
+
+            <br>
+            <br>
+            <div class="row">
+                <!-- Blog entries-->
+                <div class="col-lg-8" id="posts">
+                    <!-- Featured blog post-->
+                    <% posts.forEach(function(post) { %>
+                        <% if(post.municipio == municipioDeseado && Number(post.price) >= Number(minimo) && Number(post.price) <= Number(maximo) ) { %>
+                        <div class="card mb-4">
+                            <div class="card-header2">
+                                <label><b>
+                                    <%= post.municipio %>
+                                </b></label>
+                            </div>
+                            <a href="#!">
+                                <% if (post.image != "" ) { %>
+                                     <img class="card-img-top" src="<%= post.image %>" alt="..." />
+                                <% } else { %>
+                                    <img class="card-img-top" src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="..." />
+                                <% } %>
+                            </a>
+                            <div class="card-body">
+                                <div class="small text-muted">
+                                    <%= post.time %> by <%= post.user %>
+                                </div>
+                                <h2 class="card-title">
+                                    <%= post.title %>
+                                </h2>
+                                <p class="card-text">
+                                    $<%= post.price %>
+                                </p>
+                                <a class="btn btn-primary" href="posts/<%= post._id %>">Read more →</a>
+                            </div>
+                        </div>
+                        <% } %>
+                    <% }) %>
+                </div>
+                <!-- Side widgets-->
+                <div class="col-lg-4">
+                    
+                    <!-- Categories widget-->
+                    <div class="card mb-4">
+                        <div class="card-header">Categories</div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <ul class="list-unstyled mb-0">
+                                        <li><a href="#!">Web Design</a></li>
+                                        <li><a href="#!">HTML</a></li>
+                                        <li><a href="#!">Freebies</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-sm-6">
+                                    <ul class="list-unstyled mb-0">
+                                        <li><a href="#!">JavaScript</a></li>
+                                        <li><a href="#!">CSS</a></li>
+                                        <li><a href="#!">Tutorials</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+<%- include('footer'); -%>

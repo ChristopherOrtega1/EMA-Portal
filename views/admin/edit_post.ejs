@@ -1,0 +1,285 @@
+<%- include('header'); -%>
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+            <form method="post" id= "myForm" onsubmit="return doEditPost(this);">
+                <div class="form-group">
+                    <label>Titulo del post</label>
+                    <input name="title" class="form-control" placeholder="Titulo" value="<%= post.title %>"/>
+                </div>
+                <div class="form-group">
+
+                    <input name="user" value = "<%= user %>" class="form-control" type="hidden"/>
+                </div>
+    
+                <!-- The second value will be selected initially -->
+                <div class="form-group">
+                    <br>
+                    <label>Municipio que mejor describe la ubicación de la vivienda: </label>
+                    <select name="municipio">
+                        <% if (post.municipio == "Guadalajara") { %>
+                        <option value="Guadalajara" selected>Guadalajara</option>
+                        <% } else { %>
+                            <option value="Guadalajara">Guadalajara</option>
+                        <% } %>
+
+                        <% if (post.municipio == "Tlajomulco de Zuñiga") { %>
+                            <option value="Tlajomulco de Zuñiga" selected>Tlajomulco de Zuñiga</option>
+                            <% } else { %>
+                                <option value="Tlajomulco de Zuñiga">Tlajomulco de Zuñiga</option>
+                            <% } %>
+  
+                        <% if (post.municipio == "Zapopan") { %>
+                            <option value="Zapopan" selected>Zapopan</option>
+                            <% } else { %>
+                                <option value="Zapopan">Zapopan</option>
+                            <% } %>
+
+                        <% if (post.municipio == "Tonalá") { %>
+                            <option value="Tonalá" selected>Tonalá</option>
+                            <% } else { %>
+                                <option value="Tonalá">Tonalá</option>
+                            <% } %>
+
+                        <% if (post.municipio == "El Salto") { %>
+                            <option value="El Salto" selected>El Salto</option>
+                            <% } else { %>
+                                <option value="El Salto">El Salto</option>
+                            <% } %>
+
+                        <% if (post.municipio == "Tlaquepaque") { %>
+                            <option value="Tlaquepaque" selected>Tlaquepaque</option>
+                            <% } else { %>
+                                <option value="Tlaquepaque">Tlaquepaque</option>
+                            <% } %>
+                    </select>
+                </div>
+    
+    
+                <br>
+                <!-- Button trigger modal -->
+                <button class = "btn btn-primary" data-bs-toggle = "modal" data-bs-target = "#myModal" type="button">
+                    Cambiar la imagen de la propiedad
+                </button>
+    
+                <div class="form-group">
+                    <br>
+                    <label>Precio</label>
+                    <input type="number" name="price" class="form-control" placeholder="Precio" value="<%= post.price %>">
+                </div>
+                <div class="form-group">
+                    <br>
+                    <label>Descripcion de la propiedad</label>
+                    <textarea name="description" class="form-control" placeholder="Descripcion" ><%= post.description %></textarea>
+                </div>
+                <br>
+                <div class="card-header3">
+                    <label for="x">Coordenada X: </label>
+                    <input type="number" name="x"  placeholder="X" id="x" style="width:100px" value="<%= post.x %>" step="any">
+                    <label for="y">Coordenada Y: </label>
+                    <input type="number" name="y"  placeholder="Y" id="y" style="width:100px" value="<%= post.y %>" step="any">
+                    <br>
+                    <label for="rooms">Cantidad de habitaciones: </label>
+                    <input type="number" name="rooms"  placeholder="Cantidad" id="rooms" style="width:100px" value="<%= post.rooms %>">
+                    <br>
+                    <label for="fullBathrooms">Cantidad de baños completos: </label>
+                    <input type="number" name="fullBathrooms"  placeholder="Cantidad" id="fullBathrooms" style="width:100px" value="<%= post.fullBathrooms %>">
+                    <br>
+                    <label for="parking">Espacios para automóviles: </label>
+                    <input type="number" name="parking"  placeholder="Cantidad" id="parking" style="width:100px" value="<%= post.parking %>">
+                    <br>
+                    <label for="size">Tamaño del terreno: </label>
+                    <input type="number" name="size"  placeholder="Tamaño" id="size" style="width:100px" value="<%= post.size %>">
+                    <br>
+                    <label for="halfBathrooms">Cantidad de medios baños: </label>
+                    <input type="number" name="halfBathrooms"  placeholder="Cantidad" id="halfBathrooms" style="width:100px" value="<%= post.halfBathrooms %>">
+                    <br>
+    
+                    <label>¿Se cuenta con alberca? </label>
+                    <% if (post.pool == "1") { %>
+                        <label for="poolYes">Si</label>
+                        <input type="radio" id="poolYes" name="pool" value=1 checked>
+                        <label for="poolNo">No</label>
+                        <input type="radio" id="poolNo" name="pool" value=0 >
+                    <% } else { %>
+                        <label for="poolYes">Si</label>
+                        <input type="radio" id="poolYes" name="pool" value=1 >
+                        <label for="poolNo">No</label>
+                        <input type="radio" id="poolNo" name="pool" value=0 checked>
+
+                    <% } %>
+                    <br>
+    
+                    <label for="floors">Cantidad de pisos: </label>
+                    <input type="number" name="floors"  placeholder="Cantidad" id="floors" style="width:100px" value="<%= post.floors %>">
+                    <br>
+    
+
+                    <label>¿Se encuentra en coto? </label>
+                    <% if (post.coto == "1") { %>
+                        <input type="radio" id="cotoYes" name="coto" value=1 checked>
+                        <label for="cotoYes">Si</label>
+                        <input type="radio" id="cotoNo" name="coto" value=0>
+                        <label for="cotoNo">No</label>
+                    <% } else { %>
+                        <input type="radio" id="cotoYes" name="coto" value=1>
+                        <label for="cotoYes">Si</label>
+                        <input type="radio" id="cotoNo" name="coto" value=0 checked>
+                        <label for="cotoNo">No</label>
+
+                    <% } %>
+                    <br>
+    
+                    <label for="extraRooms">Cantidad de cuartos adicionales: </label>
+                    <input type="number" name="extraRooms"  placeholder="Cantidad" id="extraRooms" style="width:100px" value="<%= post.extraRooms %>">
+                    <br>
+    
+                    <label for="balcones">Cantidad de balcones: </label>
+                    <input type="number" name="balcones"  placeholder="Cantidad" id="balcones" style="width:100px" value="<%= post.balcones %>">
+                    <br>
+                    
+    
+                    <label>¿Se cuenta con terraza? </label>
+                    <% if (post.terraza == "1") { %>
+                        <input type="radio" id="terrazaYes" name="terraza" value=1 checked>
+                        <label for="terrazaYes">Si</label>
+                        <input type="radio" id="terrazaNo" name="terraza" value=0>
+                        <label for="terrazaNo">No</label>
+                    <% } else { %>
+                        <input type="radio" id="terrazaYes" name="terraza" value=1>
+                        <label for="terrazaYes">Si</label>
+                        <input type="radio" id="terrazaNo" name="terraza" value=0 checked>
+                        <label for="terrazaNo">No</label>
+
+                    <% } %>
+                    <br>
+
+                    <label>¿Se cuenta con cocina equipada? </label>
+                    <% if (post.cocina == "1") { %>
+                        <input type="radio" id="cocinaYes" name="cocina" value=1 checked>
+                        <label for="cocinaYes">Si</label>
+                        <input type="radio" id="cocinaNo" name="cocina" value=0>
+                        <label for="cocinaNo">No</label>
+                    <% } else { %>
+                        <input type="radio" id="cocinaYes" name="cocina" value=1>
+                        <label for="cocinaYes">Si</label>
+                        <input type="radio" id="cocinaNo" name="cocina" value=0 checked>
+                        <label for="cocinaNo">No</label>
+
+                    <% } %>
+                    <br>
+
+                    
+                    <label>¿Se cuenta con jardin? </label>
+                    <% if (post.jardin == "1") { %>
+                        <input type="radio" id="jardinYes" name="jardin" value=1 checked>
+                        <label for="jardinYes">Si</label>
+                        <input type="radio" id="jardinNo" name="jardin" value=0 >
+                        <label for="jardinNo">No</label>
+                    <% } else { %>
+                        <input type="radio" id="jardinYes" name="jardin" value=1>
+                        <label for="jardinYes">Si</label>
+                        <input type="radio" id="jardinNo" name="jardin" value=0 checked>
+                        <label for="jardinNo">No</label>
+
+                    <% } %>
+                    <br>
+    
+
+                    <label>¿Se cuenta con aire acondicionado? </label>
+                    <% if (post.aire == "1") { %>
+                        <input type="radio" id="aireYes" name="aire" value=1 checked>
+                        <label for="aireYes">Si</label>
+                        <input type="radio" id="aireNo" name="aire" value=0 >
+                        <label for="aireNo">No</label>
+                    <% } else { %>
+                        <input type="radio" id="aireYes" name="aire" value=1>
+                        <label for="aireYes">Si</label>
+                        <input type="radio" id="aireNo" name="aire" value=0 checked>
+                        <label for="aireNo">No</label>
+
+                    <% } %>
+                    <br>
+                    
+                </div>
+                <br>
+                <br>
+                <input type="submit" class="btn btn-info" value="Actualizar!" onsubmit="this.disabled=true;load_page('form-id');return false;"/>
+                <br>
+            </form>
+
+        </div>
+    </main>
+
+<!-- Modal -->
+<div class = "modal fade" id = "myModal" tabindex = "-1" role = "dialog" 
+   aria-labelledby = "myModalLabel" aria-hidden = "true">
+   
+   <div class = "modal-dialog">
+      <div class = "modal-content">
+         
+         <div class = "modal-header">
+            <button type = "button" class = "close" data-bs-dismiss = "modal" aria-hidden = "true">
+                  x
+            </button>
+            
+            <h4 class = "modal-title" id = "myModalLabel">
+               Subir imagen
+            </h4>
+         </div>
+         
+         <div class = "modal-body">
+            <form method="POST" id="form-upload" enctype="multipart/form-data">
+                <input type="hidden" name="image" value ="<%= post.image %>">
+                <div class="form-group">
+                    <input type="file" name="file" class="form-control" />
+                </div>
+                <input type="submit" class="btn btn-success" value="Upload" />
+            </form>
+         </div>
+         
+         
+      </div><!-- /.modal-content -->
+   </div><!-- /.modal-dialog -->
+  
+</div><!-- /.modal -->
+    <script>
+        var postId = '<%= post._id %>';
+        var image = '<%= post.image %>';
+        function doEditPost(form) {
+            var formData = {_id: postId, image: image, title: form.title.value, price: form.price.value, description: form.description.value, municipio: form.municipio.value, x: form.x.value, y: form.y.value, rooms: form.rooms.value, fullBathrooms: form.fullBathrooms.value, parking: form.parking.value, size: form.size.value, halfBathrooms: form.halfBathrooms.value, pool: form.pool.value, floors: form.floors.value, coto: form.coto.value, extraRooms: form.extraRooms.value, 
+            balcones: form.balcones.value, terraza: form.terraza.value,  cocina: form.cocina.value, jardin: form.jardin.value, aire: form.aire.value };
+            $.ajax({
+                
+                url: "/do-edit-post",
+                method: "POST",
+                data: formData,
+                success: function (response) {
+                    alert(response);
+                }
+            });
+            
+            return false;
+            
+        }
+
+
+    $("#form-upload").on("submit", function (e) {
+        e.preventDefault();
+        $.ajax({
+            url:"/do-update-image",
+            method:"POST",
+            data: new FormData(this),
+            contentType: false,
+            cache:false,
+            processData:false,
+            success:function(response){
+                image = response;
+                $("#myModal").modal("hide");
+            }
+        });
+    });
+
+    
+    </script>
+ <%- include('footer'); -%>

@@ -1,0 +1,206 @@
+<%- include('header'); -%>
+        <!-- Page content-->
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-lg-8">
+                    <!-- Post content-->
+                    <article>
+                        <!-- Post header-->
+                        <header class="mb-4-alt">
+                            <div class="card-header2">
+                                <label><b>
+                                    <%= post.municipio %>
+                                </b></label>
+                            </div>
+                            <br>
+                            <!-- Post title-->
+                            <h1 class="fw-bolder mb-1">
+                                <%= post.title %>
+                            </h1>
+                            <!-- Post meta content-->
+                            <div class="text-muted fst-italic mb-2">
+                                <%= post.time %> by <%= post.user %>
+                            </div>
+                            <!-- Post categories-->
+                            <a class="badge bg-secondary text-decoration-none link-light" href="#!">Web Design</a>
+                            <a class="badge bg-secondary text-decoration-none link-light" href="#!">Freebies</a>
+                                                    <!-- Preview image figure-->
+                            <br>
+                            <br>
+
+                            <figure class="mb-4">
+                                <% if (post.image != "" ) { %>
+                                    <img class="img-fluid rounded" src="<%= post.image %>" alt="..." />
+                                <% } else { %>
+                                    <img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." />
+                                <% } %>
+                            </figure>
+                            <br>
+                            <!-- Post content-->
+                            <section class="mb-5">
+                                <p class="card-header4">
+                                    $<%= post.price %>
+                                </p>
+                            </section>
+                            <section class="mb-5">
+                                <p class="fs-5 mb-4">
+                                    <%= post.description %>
+                                </p>
+                            </section>
+                            <section class="card-header5">
+                                <br>
+                                <section class="card-header4">
+                                    <p>
+                                        Tamaño del terreno - <%= post.size %> metros cuadrados
+                                    </p>
+                                </section>
+                                <br>
+                                <section class="card-header4">
+                                    <p>
+                                        <%= post.rooms %> habitacion(es)/<%= post.fullBathrooms %> baño(s) completo(s)
+                                    </p>
+                                </section>
+                                <br>
+                                <section class="card-header4">
+                                    <p>
+                                        <%= post.extraRooms %> cuarto(s) adicional(es)/<%= post.halfBathrooms %> baño(s) medio(s)
+                                    </p>
+                                </section>
+                                <br>
+                                <section class="card-header4">
+
+                                    <p>
+                                        <%= post.floors %> planta(s)/<%= post.balcones %> balcon(es)
+                                        <br>
+                                        <%= post.parking %> espacio(s) para automóviles
+                                        <br>
+                                        <% if(post.pool == "1") { %>
+                                            Cuenta con alberca
+                                        <% } else { %>
+                                            No cuenta con alberca
+                                        <% } %>
+                                        <br>
+                                        <% if(post.coto == "1") { %>
+                                            Se encuentra dentro de fraccionamiento
+                                        <% } else { %>
+                                            No se encuentra en fraccionamiento
+                                        <% } %>
+                                    </p>
+                                </section>
+                                <br>
+                                <section class="card-header4">
+                                    <p>
+                                        <% if(post.terraza == "1") { %>
+                                            Cuenta con terraza
+                                        <% } else { %>
+                                            No cuenta con terraza
+                                        <% } %>
+                                        <br>
+                                        <% if(post.cocina == "1") { %>
+                                            Cuenta con cocina equipada
+                                        <% } else { %>
+                                            No cuenta con cocina equipada
+                                        <% } %>
+                                        <br>
+                                        <% if(post.jardin == "1") { %>
+                                            Cuenta con jardin
+                                        <% } else { %>
+                                            No cuenta con jardin
+                                        <% } %>
+                                        <br>
+                                        <% if(post.aire == "1") { %>
+                                            Cuenta con aire acondicionado
+                                        <% } else { %>
+                                            No cuenta con aire acondicionado
+                                        <% } %>
+                                    </p>
+                                </section>
+                                <br>
+                            </section>
+                        </header>
+
+                    </article>
+                    <!-- Comments section-->
+                    <section class="mb-5">
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <!-- Comment form-->
+                                <form class="mb-4" method="POST" onsubmit="return doComment(this);">
+                                    <input class="form-control" name="username" placeholder="Username"/>
+                                    <br>
+                                    <input type="hidden" name="post_id" value="<%= post._id %>" />
+                                    <textarea class="form-control" name="comment" rows="3"></textarea>
+                                    <br>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </form>
+
+                                <script>
+                                    function doComment(form) {
+                                        $.ajax({
+                                            url: "/posts/:id",
+                                            method: "POST",
+                                            data: {username: form.username.value, comment: form.comment.value, post_id: form.post_id.value},
+                                            success: function (response) {
+                                                alert(response);
+                                            }
+                                        });
+                                        return false;
+                                    }
+                                </script>
+
+
+                                <% if (post.comments) { %>
+                                    <% post.comments = post.comments.reverse() %>
+                                    <% post.comments.forEach(function (comment) { %>
+                                    <!-- Comment with nested comments-->
+                                    <div class="d-flex mb-4">
+                                        <!-- Parent comment-->
+                                        <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                                        <div class="ms-3">
+                                            <div class="fw-bold">
+                                                <%= comment.username  %>
+                                            </div>
+                                            <%= comment.comment  %>
+                                        </div>
+                                    </div>
+                                    <%  })  %>
+                                <% } %>
+
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <!-- Side widgets-->
+                <div class="col-lg-4">
+                    <!-- Categories widget-->
+                    <div class="card mb-4">
+                        <div class="card-header">Categories</div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <ul class="list-unstyled mb-0">
+                                        <li><a href="#!">Web Design</a></li>
+                                        <li><a href="#!">HTML</a></li>
+                                        <li><a href="#!">Freebies</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-sm-6">
+                                    <ul class="list-unstyled mb-0">
+                                        <li><a href="#!">JavaScript</a></li>
+                                        <li><a href="#!">CSS</a></li>
+                                        <li><a href="#!">Tutorials</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Side widget-->
+                    <div class="card mb-4">
+                        <div class="card-header">Side Widget</div>
+                        <div class="card-body">You can put anything you want inside of these side widgets. They are easy to use, and feature the Bootstrap 5 card component!</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<%- include('footer'); -%>

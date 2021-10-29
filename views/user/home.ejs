@@ -1,0 +1,151 @@
+<%- include('header'); -%>
+        <!-- Page content-->
+        <div class="container">
+            <div class="row">
+                <!-- Blog entries-->
+                
+                <div class="col-lg-8" id="posts">
+                    <!-- Featured blog post-->
+                    <% posts.forEach(function(post) { %>
+                        <div class="card mb-4" id="post-<%= post._id %>">
+                            <div class="card-header2">
+                                <label><b>
+                                    <%= post.municipio %>
+                                </b></label>
+                            </div>
+                            <a href="#!">
+                                <% if (post.image != "" ) { %>
+                                     <img class="card-img-top" src="<%= post.image %>" alt="..." />
+                                <% } else { %>
+                                    <img class="card-img-top" src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="..." />
+                                <% } %>
+                            </a>
+                            <div class="card-body">
+                                <div class="small text-muted">
+                                    <%= post.time %> by <%= post.user %>
+                                </div>
+                                <h2 class="card-title">
+                                    <%= post.title %>
+                                </h2>
+                                <p class="card-text">
+                                    $<%= post.price %>
+                                </p>
+                                <a class="btn btn-primary" href="posts/<%= post._id %>">Read more →</a>
+                            </div>
+                        </div>
+                    <% }) %>
+                </div>
+                <!-- Side widgets-->
+                <div class="col-lg-4">
+                    <!-- Search widget-->
+                    <div class="card mb-4">
+                        <div class="card-header2">Busqueda</div>
+                        <div class="card-body">
+                            <form method="POST" onsubmit="doSearch(this);">
+                                    <label>Municipio:   </label>
+                                    <select name="municipio" id="municipioDeseado">
+                                        <option value="Guadalajara" selected>Guadalajara</option>
+                                        <option value="Tlajomulco de Zuñiga">Tlajomulco de Zuñiga</option>
+                                        <option value="Zapopan">Zapopan</option>
+                                        <option value="Tonalá">Tonalá</option>
+                                        <option value="El Salto">El Salto</option>
+                                        <option value="Tlaquepaque">Tlaquepaque</option>
+                                    </select>
+                                    <br>
+                                    <br>
+                                    <label>Precio minimo:   </label>
+                                    <input type="number" id="minimo" name="minimo" min="0" max="1000000000" value= 0>
+                                    <br>
+                                    <br>
+                                    <label>Precio maximo:   </label>
+                                    <input type="number" id="maximo" name="maximo" min="0" max="10000000000000" value=99999999>
+                                    <br>
+                                    <br>
+                                    <input type="submit" class="btn btn-primary" value="Buscar"/>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- Categories widget-->
+                    <div class="card mb-4">
+                        <div class="card-header">Categories</div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <ul class="list-unstyled mb-0">
+                                        <li><a href="#!">Web Design</a></li>
+                                        <li><a href="#!">HTML</a></li>
+                                        <li><a href="#!">Freebies</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-sm-6">
+                                    <ul class="list-unstyled mb-0">
+                                        <li><a href="#!">JavaScript</a></li>
+                                        <li><a href="#!">CSS</a></li>
+                                        <li><a href="#!">Tutorials</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Side widget-->
+                    <div class="card mb-4">
+                        <div class="card-header">Side Widget</div>
+                        <div class="card-body">You can put anything you want inside of these side widgets. They are easy to use, and feature the Bootstrap 5 card component!</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            var socket = io();
+            socket.on("delete_post", function (replyId) {
+                document.getElementById("post-"+replyId).remove();
+            });
+            socket.on("new_post", function(formData){
+
+                var html = "";
+
+                html += '<div class="card mb-4" id='+ "post-"+formData._id +'>';
+                    html += '<div class="card-header2">';
+                        html += '<label><b>';
+                            html +=  formData.municipio;
+                        html += '</b></label>';
+                    html += '</div>';
+                    html += '<a href="#!">';
+                        if (formData.image != "" ) {
+                            html += '<img class="card-img-top" src="' + formData.image +'" alt="..." />';
+                                } else {
+                                    html += '<img class="card-img-top" src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="..." />';
+                                 }
+                    html += '</a>';
+                    html += '<div class="card-body">';
+                        html += '<div class="small text-muted">';
+                            html += formData.time + ' by ' +formData.user;
+                            html += '</div>';
+                            html += '<h2 class="card-title">';
+                            html += formData.title;
+                            html += '</h2>';
+                            html += '<p class="card-text">';
+                                html += '$'+formData.price;
+                            html += '</p>';
+                            html += '<a class="btn btn-primary" href="posts/' + formData._id + '">Read more →</a>';
+                    html += '</div>';
+                html += '</div>';
+                $("#posts").prepend(html);
+            });
+        </script>
+
+    <script>
+        function doSearch(form){
+            $.ajax({
+                url:"/search",
+                method: "POST",
+                data:{municipioDeseado:form.municipio.value},
+                success: function(response){
+                    console.log("oka");
+                }
+
+            });
+            return false;
+        }
+    </script> 
+<%- include('footer'); -%>
