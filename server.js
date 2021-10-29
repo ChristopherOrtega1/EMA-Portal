@@ -311,8 +311,9 @@ MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {
         });
     });
 
-    http.listen(3000, function () {
-        console.log("Connected");
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => {
+        console.log(`Our app is running on port ${ PORT }`);
     });
 
 });
