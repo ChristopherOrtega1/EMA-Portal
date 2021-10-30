@@ -30,7 +30,7 @@ var smtpTransport = nodemailer.createTransport({
     secure: false,
     auth: {
         user: "christopher.ortega@alumnos.udg.mx",
-        pass: "process.env.SESSION_SECRET"
+        pass: process.env.PASSSECRET
     }
 }); //"new1173safety5519fea"
 var rand,mailOptions,host,link;
