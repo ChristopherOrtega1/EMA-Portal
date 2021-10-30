@@ -81,7 +81,7 @@
                 data:{email:form.email.value, password: form.password.value},
                 success: function(response){
                     if (response == ""){
-                        alert("Credenciales incorrectas");
+                        alert("No se encontro un usuario verificado con esas credenciales");
                     }else {
                         window.location.href = "/admin/dashboard";
                     }

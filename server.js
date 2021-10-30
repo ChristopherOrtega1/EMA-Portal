@@ -11,6 +11,7 @@ app.use(bodyParser.json());
 
 var MongoClient = require("mongodb").MongoClient;
 var ObjectId = require("mongodb").ObjectId;
+var nodemailer = require("nodemailer");
 
 var http = require("http").createServer(app);
 var io = require("socket.io")(http);
@@ -22,6 +23,17 @@ app.use(session({
     secret: "any random string",
     currentUser:""
 }));
+
+var smtpTransport = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false,
+    auth: {
+        user: "christopher.ortega@alumnos.udg.mx",
+        pass: "process.env.SESSION_SECRET"
+    }
+}); //"new1173safety5519fea"
+var rand,mailOptions,host,link;
 
 MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {useNewUrlParser: true},
     function (error, client){
@@ -123,7 +135,7 @@ MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {
 
     app.post("/do-admin-login", function(req, res){
 
-        blog.collection("admins").findOne({"email": req.body.email, "password":req.body.password}, function(error, admin){
+        blog.collection("admins").findOne({"email": req.body.email, "password":req.body.password, "auth": "1"}, function(error, admin){
             if(admin != null){
                 console.log(admin);
                 req.session.admin = admin;
@@ -143,8 +155,30 @@ MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {
                 console.log("Correo ya usado");
                 res.send("El correo ya ha sido utilizado para dar de alta otra cuenta");
             } else {
-        blog.collection("admins").insertOne(req.body, function(error, document){
+                authKey=Math.floor((Math.random() * 1000000) + 1);
+                
+            blog.collection("admins").insertOne({
+            "email": req.body.email,
+            "password": req.body.password,
+            "username": req.body.username,
+            "auth": "0",
+            "authKey":  authKey.toString()
+            }, function(error, document){
             res.send("Usuario registrado correctamente");
+            link="https://ema-portal.herokuapp.com/verificar?authKey="+authKey;
+            mailOptions={
+                to : req.body.email,
+                subject : "Please confirm your Email account",
+                html : "Hello,<br> Please Click on the link to verify your email.<br><a href="+link+">Click here to verify</a>" 
+            }
+            console.log(mailOptions);
+            smtpTransport.sendMail(mailOptions, function(error, response){
+            if(error){
+                    console.log(error);
+            }else{
+                    console.log("Message sent!");
+                }
+            });
         }); 
     }
     });
@@ -299,6 +333,25 @@ MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {
             res.redirect("/admin");
         }
     });
+
+
+    app.get('/verificar',function(req,res){
+            console.log(req.query.authKey);
+            res.redirect("/admin")
+            blog.collection("admins").updateOne({"authKey": req.query.authKey }, {
+                $set: {
+                    "auth": "1"
+                }
+            });
+            /*if(req.query.id==rand)
+            {
+                console.log("email is verified");
+            }
+            else
+            {
+                console.log("email is not verified");
+            }*/
+        });
 
     io.on("connection", function(socket){
 
