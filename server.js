@@ -180,6 +180,7 @@ MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {
                     text: "posted correctly",
                     _id: document.insertedId
                 });
+                
             });  
             
             

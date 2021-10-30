@@ -10,7 +10,7 @@
                             <!-- Featured blog post-->
                             <% posts.forEach(function(post) { %>
                                 <% if (post.user == user) { %>
-                                <div class="card mb-4">
+                                <div class="card mb-4" id="post-<%= post._id %>">
                                     <div class="card-header2">
                                         <label><b>
                                             <%= post.municipio %>
@@ -60,9 +60,12 @@
                 var socket = io();
                 socket.emit("delete_post", postId);
                 alert(response);
+                document.getElementById("post-"+postId).remove();
             }
         });
+
     }
+    
     }
 </script>
 

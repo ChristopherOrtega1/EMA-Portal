@@ -159,7 +159,7 @@
          <div class = "modal-body">
             <form method="POST" id="formupload" enctype="multipart/form-data">
                 <div class="form-group">
-                    <input type="file" name="file" class="form-control" />
+                    <input type="file" name="file" class="form-control" id="fileId"/>
                 </div>
                 <input type="submit" class="btn btn-success" value="Upload" />
             </form>
@@ -197,6 +197,7 @@
 </script>
 <script>
     function doPost(form) {
+        
         var today = new Date();
         var dd = String(today.getDate()).padStart(2, '0');
         var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -218,7 +219,11 @@
 
                 var socket = io();
                 socket.emit("new_post", formData);
+                document.getElementById("myForm").reset();
+                document.getElementById("formupload").reset();
+                imagePath="";
             }
+
         });
         
         return false;
