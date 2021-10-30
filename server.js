@@ -32,7 +32,7 @@ var smtpTransport = nodemailer.createTransport({
         user: "christopher.ortega@alumnos.udg.mx",
         pass: process.env.PASSSECRET
     }
-}); //"new1173safety5519fea"
+}); 
 var rand,mailOptions,host,link;
 
 MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {useNewUrlParser: true},
