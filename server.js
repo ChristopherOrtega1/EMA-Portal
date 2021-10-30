@@ -18,6 +18,12 @@ var io = require("socket.io")(http);
 var formidable = require("formidable");
 var fs = require("fs");
 var session = require("express-session");
+
+var crypto = require('crypto');
+var algorithm = 'aes-256-ctr';
+var password = process.env.CRYPTKEY;
+
+
 app.use(session({
     key: "admin",
     secret: "any random string",
@@ -34,6 +40,20 @@ var smtpTransport = nodemailer.createTransport({
     }
 }); 
 var rand,mailOptions,host,link;
+
+function encrypt(text){
+    var cipher = crypto.createCipher(algorithm,password)
+    var crypted = cipher.update(text,'utf8','hex')
+    crypted += cipher.final('hex');
+    return crypted;
+  }
+
+  function decrypt(text){
+    var decipher = crypto.createDecipher(algorithm,password)
+    var dec = decipher.update(text,'hex','utf8')
+    dec += decipher.final('utf8');
+    return dec;
+  }
 
 MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {useNewUrlParser: true},
     function (error, client){
@@ -135,7 +155,7 @@ MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {
 
     app.post("/do-admin-login", function(req, res){
 
-        blog.collection("admins").findOne({"email": req.body.email, "password":req.body.password, "auth": "1"}, function(error, admin){
+        blog.collection("admins").findOne({"email": req.body.email, "password":encrypt(req.body.password), "auth": "1"}, function(error, admin){
             if(admin != null){
                 console.log(admin);
                 req.session.admin = admin;
@@ -159,10 +179,10 @@ MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {
                 
             blog.collection("admins").insertOne({
             "email": req.body.email,
-            "password": req.body.password,
+            "password": encrypt(req.body.password),
             "username": req.body.username,
             "auth": "0",
-            "authKey":  authKey.toString()
+            "authKey":  encrypt(authKey.toString())
             }, function(error, document){
             res.send("Usuario registrado correctamente");
             link="https://ema-portal.herokuapp.com/verificar?authKey="+authKey;
@@ -338,7 +358,7 @@ MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {
     app.get('/verificar',function(req,res){
             console.log(req.query.authKey);
             res.redirect("/admin")
-            blog.collection("admins").updateOne({"authKey": req.query.authKey }, {
+            blog.collection("admins").updateOne({"authKey": encrypt(req.query.authKey) }, {
                 $set: {
                     "auth": "1"
                 }
