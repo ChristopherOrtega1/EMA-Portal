@@ -40,10 +40,10 @@
                     <!-- Search widget-->
                     <div class="card mb-4">
                         <div class="card-header2"><i class="fas fa-search-dollar" style="color:white;"></i><b>Busqueda</b></div>
-                        <div class="card-body">
+                        <div class="card-body2">
                             <form method="POST" onsubmit="doSearch(this);">
-                                    <label>Municipio:   </label>
-                                    <select name="municipio" id="municipioDeseado">
+                                    <label><b>Municipio:   </b></label>
+                                    <select name="municipio" id="municipioDeseado" style="background-color:black; color:white">
                                         <option value="Guadalajara" selected>Guadalajara</option>
                                         <option value="Tlajomulco de Zuñiga">Tlajomulco de Zuñiga</option>
                                         <option value="Zapopan">Zapopan</option>
@@ -53,15 +53,15 @@
                                     </select>
                                     <br>
                                     <br>
-                                    <label>Precio minimo:   </label>
-                                    <input type="number" id="minimo" name="minimo" min="0" max="1000000000" value= 0>
+                                    <label><b>Precio minimo:   </b></label>
+                                    <input type="number" id="minimo" name="minimo" min="0" max="1000000000" value= 0 style="background-color:black; color:white">
                                     <br>
                                     <br>
-                                    <label>Precio maximo:   </label>
-                                    <input type="number" id="maximo" name="maximo" min="0" max="10000000000000" value=99999999>
+                                    <label><b>Precio maximo:   </b></label>
+                                    <input type="number" id="maximo" name="maximo" min="0" max="10000000000000" value=99999999 style="background-color:black; color:white">
                                     <br>
                                     <br>
-                                    <input type="submit" class="btn btn-primary" value="Buscar"/>
+                                    <input type="submit" class="btn btn-primary" value="Buscar" style="background-color:rgb(28, 28, 28); color:white"/>
                             </form>
                         </div>
                     </div>

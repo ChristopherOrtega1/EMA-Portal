@@ -4547,6 +4547,14 @@ textarea.form-control-lg {
   padding: 1rem 1rem;
 }
 
+.card-body2 {
+  flex: 1 1 auto;
+  padding: 1rem 1rem;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
 .card-title {
   margin-bottom: 0.5rem;
 }
@@ -4573,7 +4581,7 @@ textarea.form-control-lg {
 .card-header2 {
   padding: 0.5rem 1rem;
   margin-bottom: 0;
-  background-color: rgba(0, 0, 0, 0.912);
+  background-color: #212529;
   border-bottom: 1px solid rgba(0, 0, 0, 0.125);
   text-align: center;
   color: white;
