@@ -20,6 +20,7 @@ var fs = require("fs");
 var session = require("express-session");
 
 var crypto = require('crypto');
+const { format } = require("path");
 var algorithm = 'aes-256-ctr';
 var password = process.env.CRYPTKEY;
 
@@ -154,6 +155,7 @@ MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {
     });
 
     app.post("/do-admin-login", function(req, res){
+        console.log(encrypt(req.body.password));
 
         blog.collection("admins").findOne({"email": req.body.email, "password":encrypt(req.body.password), "auth": "1"}, function(error, admin){
             if(admin != null){
@@ -188,8 +190,8 @@ MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {
             link="https://ema-portal.herokuapp.com/verificar?authKey="+authKey;
             mailOptions={
                 to : req.body.email,
-                subject : "Please confirm your Email account",
-                html : "Hello,<br> Please Click on the link to verify your email.<br><a href="+link+">Click here to verify</a>" 
+                subject : "EMA - Confirmar correo",
+                html : "Hola para terminar tu registro en EMA,<br> Haga clic en el link para confirmar su email.<br><a href="+link+">Clic para verificar</a>" 
             }
             console.log(mailOptions);
             smtpTransport.sendMail(mailOptions, function(error, response){
@@ -231,7 +233,7 @@ MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {
                     });
                 }
                 res.send({
-                    text: "posted correctly",
+                    text: "Casa publicada",
                     _id: document.insertedId
                 });
                 

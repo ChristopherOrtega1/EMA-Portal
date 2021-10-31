@@ -490,6 +490,7 @@ progress {
 .lead {
   font-size: 1.25rem;
   font-weight: 300;
+  color: #ffffff;
 }
 
 .display-1 {
@@ -7688,6 +7689,11 @@ textarea.form-control-lg {
   font-weight: bolder !important;
 }
 
+.fw-bolder2 {
+  font-weight: bolder !important;
+  color: #ffffff;
+}
+
 .lh-1 {
   line-height: 1 !important;
 }
@@ -7878,8 +7884,22 @@ textarea.form-control-lg {
 
 .bg-light {
   --bs-bg-opacity: 1;
+  
   background-color: rgba(var(--bs-light-rgb), var(--bs-bg-opacity)) !important;
 }
+
+.bg-light2 {
+  --bs-bg-opacity: 1;
+  opacity: 0.75;
+  background-image: url(/static/user/assets/guadajpg.jpg);
+  background-attachment: fixed; 
+	background-position: center; 
+	background-repeat: no-repeat; 
+	background-size: cover; 
+  
+  background-color: rgba(var(--bs-light-rgb), var(--bs-bg-opacity)) !important;
+}
+
 
 .bg-dark {
   --bs-bg-opacity: 1;
