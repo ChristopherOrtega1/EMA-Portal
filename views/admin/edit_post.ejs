@@ -5,7 +5,7 @@
             <form method="post" id= "myForm" onsubmit="return doEditPost(this);">
                 <div class="form-group">
                     <label>Titulo del post</label>
-                    <input name="title" class="form-control" placeholder="Titulo" value="<%= post.title %>"/>
+                    <input name="title" class="form-control" placeholder="Titulo" value="<%= post.title %>" required/>
                 </div>
                 <div class="form-group">
 
@@ -65,12 +65,12 @@
                 <div class="form-group">
                     <br>
                     <label>Precio</label>
-                    <input type="number" name="price" class="form-control" placeholder="Precio" value="<%= post.price %>">
+                    <input type="number" name="price" class="form-control" placeholder="Precio" value="<%= post.price %>" required min="0">
                 </div>
                 <div class="form-group">
                     <br>
                     <label>Descripcion de la propiedad</label>
-                    <textarea name="description" class="form-control" placeholder="Descripcion" ><%= post.description %></textarea>
+                    <textarea name="description" class="form-control" placeholder="Descripcion" style="white-space: pre-line;"><%= post.description %></textarea>
                 </div>
                 <br>
                 <div class="card-header3">
@@ -80,19 +80,19 @@
                     <input type="number" name="y"  placeholder="Y" id="y" style="width:100px" value="<%= post.y %>" step="any">
                     <br>
                     <label for="rooms">Cantidad de habitaciones: </label>
-                    <input type="number" name="rooms"  placeholder="Cantidad" id="rooms" style="width:100px" value="<%= post.rooms %>">
+                    <input type="number" name="rooms"  placeholder="Cantidad" id="rooms" style="width:100px" value="<%= post.rooms %>" min="0" required>
                     <br>
                     <label for="fullBathrooms">Cantidad de baños completos: </label>
-                    <input type="number" name="fullBathrooms"  placeholder="Cantidad" id="fullBathrooms" style="width:100px" value="<%= post.fullBathrooms %>">
+                    <input type="number" name="fullBathrooms"  placeholder="Cantidad" id="fullBathrooms" style="width:100px" value="<%= post.fullBathrooms %>"  min="0" required>
                     <br>
                     <label for="parking">Espacios para automóviles: </label>
-                    <input type="number" name="parking"  placeholder="Cantidad" id="parking" style="width:100px" value="<%= post.parking %>">
+                    <input type="number" name="parking"  placeholder="Cantidad" id="parking" style="width:100px" value="<%= post.parking %>"  min="0" required>
                     <br>
                     <label for="size">Tamaño del terreno: </label>
-                    <input type="number" name="size"  placeholder="Tamaño" id="size" style="width:100px" value="<%= post.size %>">
+                    <input type="number" name="size"  placeholder="Tamaño" id="size" style="width:100px" value="<%= post.size %>"  min="1" required>
                     <br>
                     <label for="halfBathrooms">Cantidad de medios baños: </label>
-                    <input type="number" name="halfBathrooms"  placeholder="Cantidad" id="halfBathrooms" style="width:100px" value="<%= post.halfBathrooms %>">
+                    <input type="number" name="halfBathrooms"  placeholder="Cantidad" id="halfBathrooms" style="width:100px" value="<%= post.halfBathrooms %>"  min="0" required>
                     <br>
     
                     <label>¿Se cuenta con alberca? </label>
@@ -111,7 +111,7 @@
                     <br>
     
                     <label for="floors">Cantidad de pisos: </label>
-                    <input type="number" name="floors"  placeholder="Cantidad" id="floors" style="width:100px" value="<%= post.floors %>">
+                    <input type="number" name="floors"  placeholder="Cantidad" id="floors" style="width:100px" value="<%= post.floors %>"  min="1" required>
                     <br>
     
 
@@ -131,11 +131,11 @@
                     <br>
     
                     <label for="extraRooms">Cantidad de cuartos adicionales: </label>
-                    <input type="number" name="extraRooms"  placeholder="Cantidad" id="extraRooms" style="width:100px" value="<%= post.extraRooms %>">
+                    <input type="number" name="extraRooms"  placeholder="Cantidad" id="extraRooms" style="width:100px" value="<%= post.extraRooms %>"  min="0" required>
                     <br>
     
                     <label for="balcones">Cantidad de balcones: </label>
-                    <input type="number" name="balcones"  placeholder="Cantidad" id="balcones" style="width:100px" value="<%= post.balcones %>">
+                    <input type="number" name="balcones"  placeholder="Cantidad" id="balcones" style="width:100px" value="<%= post.balcones %>"  min="0" required>
                     <br>
                     
     
