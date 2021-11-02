@@ -101,12 +101,11 @@ MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {
     });
 
     app.post("/posts/:id", function (req, res) {
-        blog.collection("posts").updateOne({"_id": ObjectId(req.body.post_id) }, {
-            $push: {
-                "comments": {username: req.body.username, comment: req.body.comment}
-            }
-        }, function(error, post){
-            res.send("Comentario guardado");
+        blog.collection("posts").find().toArray(function(error, posts){
+            console.log(req.body);
+            posts = posts.reverse();
+            res.render("user/home-search", {posts: posts, municipioDeseado:req.body.municipio, minimo:req.body.minimo, maximo:req.body.maximo });
+            
         });
 
     });

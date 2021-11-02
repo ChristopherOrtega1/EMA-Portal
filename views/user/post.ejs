@@ -1,8 +1,7 @@
 <%- include('header'); -%>
         <!-- Page content-->
         <div class="container mt-5">
-            <div class="row">
-                <div class="col-lg-8">
+         
                     <!-- Post content-->
                     <article>
                         <!-- Post header-->
@@ -44,6 +43,16 @@
                                 </b></div>
                             </section>
                             <br>
+
+                            <fieldset class="gllpLatlonPicker">
+                                <br/><br/>
+                                <div class="gllpMap">Google Maps</div>
+                                <br/>
+                                    <input type="text" hidden class="gllpLatitude" value=<%= post.x %>> 
+                                    <input type="text" hidden class="gllpLongitude" value=<%= post.y %>>  
+                                <br/>
+                            </fieldset>
+
                             <section class="card-header5">
                                 <br>
                                 <section class="card-header4">
@@ -71,11 +80,13 @@
                                         <br>
                                         <%= post.parking %> espacio(s) para automóviles
                                         <br>
+                                        <br>
                                         <% if(post.pool == "1") { %>
                                             Cuenta con alberca
                                         <% } else { %>
                                             No cuenta con alberca
                                         <% } %>
+                                        <br>
                                         <br>
                                         <% if(post.coto == "1") { %>
                                             Se encuentra dentro de fraccionamiento
@@ -93,17 +104,20 @@
                                             No cuenta con terraza
                                         <% } %>
                                         <br>
+                                        <br>
                                         <% if(post.cocina == "1") { %>
                                             Cuenta con cocina equipada
                                         <% } else { %>
                                             No cuenta con cocina equipada
                                         <% } %>
                                         <br>
+                                        <br>
                                         <% if(post.jardin == "1") { %>
                                             Cuenta con jardin
                                         <% } else { %>
                                             No cuenta con jardin
                                         <% } %>
+                                        <br>
                                         <br>
                                         <% if(post.aire == "1") { %>
                                             Cuenta con aire acondicionado
@@ -168,38 +182,7 @@
                         </div>
                     </section>
                 -->
-                </div>
-                <!-- Side widgets-->
-                <div class="col-lg-4">
-                    <!-- Categories widget-->
-                    <div class="card mb-4">
-                        <div class="card-header">Categories</div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <ul class="list-unstyled mb-0">
-                                        <li><a href="#!">Web Design</a></li>
-                                        <li><a href="#!">HTML</a></li>
-                                        <li><a href="#!">Freebies</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-sm-6">
-                                    <ul class="list-unstyled mb-0">
-                                        <li><a href="#!">JavaScript</a></li>
-                                        <li><a href="#!">CSS</a></li>
-                                        <li><a href="#!">Tutorials</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Side widget-->
-                    <div class="card mb-4">
-                        <div class="card-header">Side Widget</div>
-                        <div class="card-body">You can put anything you want inside of these side widgets. They are easy to use, and feature the Bootstrap 5 card component!</div>
-                    </div>
-                </div>
-            </div>
+                
+            
         </div>
-
 <%- include('footer'); -%>
