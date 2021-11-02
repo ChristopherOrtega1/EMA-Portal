@@ -18,7 +18,7 @@
                     <div class="form-group">
                         <br>
                         <label>Municipio que mejor describe la ubicación de la vivienda: </label>
-                        <select name="municipio">
+                        <select name="municipio" style="width:150px">
                             <% if (post.municipio == "Guadalajara") { %>
                             <option value="Guadalajara" selected>Guadalajara</option>
                             <% } else { %>
@@ -83,9 +83,9 @@
                     <br/>
                     <div class="card-header3">
                     Latitud
-                     <input type="text" class="gllpLatitude" name="x" id= "x" value="<%= post.x %>" required/>
+                     <input type="text" class="gllpLatitude" name="x" id= "x" value="<%= post.x %>" required style="width:200px"/>
                         Longitud
-                     <input type="text" class="gllpLongitude" name="y" id="y" value="<%= post.y %>" required/> 
+                     <input type="text" class="gllpLongitude" name="y" id="y" value="<%= post.y %>" required style="width:200px"/> 
                     </div>
                     <br/>
                 </fieldset>
