@@ -3,82 +3,93 @@
     <main>
         <div class="container-fluid px-4">
             <form method="post" id= "myForm" onsubmit="return doEditPost(this);">
-                <div class="form-group">
-                    <label>Titulo del post</label>
-                    <input name="title" class="form-control" placeholder="Titulo" value="<%= post.title %>" required/>
-                </div>
-                <div class="form-group">
-
-                    <input name="user" value = "<%= user %>" class="form-control" type="hidden"/>
-                </div>
-    
-                <!-- The second value will be selected initially -->
-                <div class="form-group">
-                    <br>
-                    <label>Municipio que mejor describe la ubicación de la vivienda: </label>
-                    <select name="municipio">
-                        <% if (post.municipio == "Guadalajara") { %>
-                        <option value="Guadalajara" selected>Guadalajara</option>
-                        <% } else { %>
-                            <option value="Guadalajara">Guadalajara</option>
-                        <% } %>
-
-                        <% if (post.municipio == "Tlajomulco de Zuñiga") { %>
-                            <option value="Tlajomulco de Zuñiga" selected>Tlajomulco de Zuñiga</option>
-                            <% } else { %>
-                                <option value="Tlajomulco de Zuñiga">Tlajomulco de Zuñiga</option>
-                            <% } %>
-  
-                        <% if (post.municipio == "Zapopan") { %>
-                            <option value="Zapopan" selected>Zapopan</option>
-                            <% } else { %>
-                                <option value="Zapopan">Zapopan</option>
-                            <% } %>
-
-                        <% if (post.municipio == "Tonalá") { %>
-                            <option value="Tonalá" selected>Tonalá</option>
-                            <% } else { %>
-                                <option value="Tonalá">Tonalá</option>
-                            <% } %>
-
-                        <% if (post.municipio == "El Salto") { %>
-                            <option value="El Salto" selected>El Salto</option>
-                            <% } else { %>
-                                <option value="El Salto">El Salto</option>
-                            <% } %>
-
-                        <% if (post.municipio == "Tlaquepaque") { %>
-                            <option value="Tlaquepaque" selected>Tlaquepaque</option>
-                            <% } else { %>
-                                <option value="Tlaquepaque">Tlaquepaque</option>
-                            <% } %>
-                    </select>
-                </div>
-    
-    
-                <br>
-                <!-- Button trigger modal -->
-                <button class = "btn btn-primary" data-bs-toggle = "modal" data-bs-target = "#myModal" type="button">
-                    Cambiar la imagen de la propiedad
-                </button>
-    
-                <div class="form-group">
-                    <br>
-                    <label>Precio</label>
-                    <input type="number" name="price" class="form-control" placeholder="Precio" value="<%= post.price %>" required min="0">
-                </div>
-                <div class="form-group">
-                    <br>
-                    <label>Descripcion de la propiedad</label>
-                    <textarea name="description" class="form-control" placeholder="Descripcion" style="white-space: pre-line;"><%= post.description %></textarea>
-                </div>
                 <br>
                 <div class="card-header3">
-                    <label for="x">Coordenada X: </label>
-                    <input type="number" name="x"  placeholder="X" id="x" style="width:100px" value="<%= post.x %>" step="any">
-                    <label for="y">Coordenada Y: </label>
-                    <input type="number" name="y"  placeholder="Y" id="y" style="width:100px" value="<%= post.y %>" step="any">
+                    <div class="form-group">
+                        <label>Titulo del post</label>
+                        <input name="title" class="form-control" placeholder="Titulo" value="<%= post.title %>" required/>
+                    </div>
+                    <div class="form-group">
+    
+                        <input name="user" value = "<%= user %>" class="form-control" type="hidden"/>
+                    </div>
+        
+                    <!-- The second value will be selected initially -->
+                    <div class="form-group">
+                        <br>
+                        <label>Municipio que mejor describe la ubicación de la vivienda: </label>
+                        <select name="municipio">
+                            <% if (post.municipio == "Guadalajara") { %>
+                            <option value="Guadalajara" selected>Guadalajara</option>
+                            <% } else { %>
+                                <option value="Guadalajara">Guadalajara</option>
+                            <% } %>
+    
+                            <% if (post.municipio == "Tlajomulco de Zuñiga") { %>
+                                <option value="Tlajomulco de Zuñiga" selected>Tlajomulco de Zuñiga</option>
+                                <% } else { %>
+                                    <option value="Tlajomulco de Zuñiga">Tlajomulco de Zuñiga</option>
+                                <% } %>
+      
+                            <% if (post.municipio == "Zapopan") { %>
+                                <option value="Zapopan" selected>Zapopan</option>
+                                <% } else { %>
+                                    <option value="Zapopan">Zapopan</option>
+                                <% } %>
+    
+                            <% if (post.municipio == "Tonalá") { %>
+                                <option value="Tonalá" selected>Tonalá</option>
+                                <% } else { %>
+                                    <option value="Tonalá">Tonalá</option>
+                                <% } %>
+    
+                            <% if (post.municipio == "El Salto") { %>
+                                <option value="El Salto" selected>El Salto</option>
+                                <% } else { %>
+                                    <option value="El Salto">El Salto</option>
+                                <% } %>
+    
+                            <% if (post.municipio == "Tlaquepaque") { %>
+                                <option value="Tlaquepaque" selected>Tlaquepaque</option>
+                                <% } else { %>
+                                    <option value="Tlaquepaque">Tlaquepaque</option>
+                                <% } %>
+                        </select>
+                    </div>
+        
+        
                     <br>
+                    <!-- Button trigger modal -->
+                    <button class = "btn btn-primary" data-bs-toggle = "modal" data-bs-target = "#myModal" type="button">
+                        Cambiar la imagen de la propiedad
+                    </button>
+        
+                    <div class="form-group">
+                        <br>
+                        <label>Precio</label>
+                        <input type="number" name="price" class="form-control" placeholder="Precio" value="<%= post.price %>" required min="0">
+                    </div>
+                    <div class="form-group">
+                        <br>
+                        <label>Descripcion de la propiedad</label>
+                        <textarea name="description" class="form-control" placeholder="Descripcion" style="white-space: pre-line;"><%= post.description %></textarea>
+                    </div>
+                    <br>
+                </div>
+
+                <br>
+                <fieldset class="gllpLatlonPicker">
+                    <div class="gllpMap">Google Maps</div>
+                    <br/>
+                    <div class="card-header3">
+                    Latitud
+                     <input type="text" class="gllpLatitude" name="x" id= "x" value="<%= post.x %>" required/>
+                        Longitud
+                     <input type="text" class="gllpLongitude" name="y" id="y" value="<%= post.y %>" required/> 
+                    </div>
+                    <br/>
+                </fieldset>
+                <div class="card-header3">
                     <label for="rooms">Cantidad de habitaciones: </label>
                     <input type="number" name="rooms"  placeholder="Cantidad" id="rooms" style="width:100px" value="<%= post.rooms %>" min="0" required>
                     <br>
@@ -203,9 +214,10 @@
                     
                 </div>
                 <br>
-                <br>
-                <input type="submit" class="btn btn-info" value="Actualizar!" onsubmit="this.disabled=true;load_page('form-id');return false;"/>
-                <br>
+                <div class="card-header3">
+                    <input type="submit" class="btn btn-info" value="Actualizar!" onsubmit="this.disabled=true;load_page('form-id');return false;"/>
+                    <br>
+                </div>
             </form>
 
         </div>

@@ -4595,8 +4595,8 @@ textarea.form-control-lg {
   border-bottom: 1px solid rgba(0, 0, 0, 0.125);
   text-align: center;
   color: white;
-  margin-left: 30%;
-  margin-right: 30%;
+  margin-left: 20%;
+  margin-right: 20%;
   border-radius: 25px;
 }
 .card-header:first-child {

@@ -4,55 +4,66 @@
     <div class="container-fluid">
 
         <form method="post" id= "myForm" onsubmit="return doPost(this);">
-            
-            <div class="form-group">
-                <label>Titulo del post</label>
-                <input name="title" class="form-control" placeholder="Titulo" required/>
-            </div>
-            <div class="form-group">
-                <input name="image" value = "kill" id= "image" class="form-control" placeholder="Im" type="hidden"/>
-                <input name="user" value = "<%= user %>" class="form-control" type="hidden"/>
-            </div>
-
-            <!-- The second value will be selected initially -->
-            <div class="form-group">
-                <br>
-                <label>Municipio que mejor describe la ubicación de la vivienda: </label>
-                <select name="municipio">
-                    <option value="Guadalajara" selected>Guadalajara</option>
-                    <option value="Tlajomulco de Zuñiga">Tlajomulco de Zuñiga</option>
-                    <option value="Zapopan">Zapopan</option>
-                    <option value="Tonalá">Tonalá</option>
-                    <option value="El Salto">El Salto</option>
-                    <option value="Tlaquepaque">Tlaquepaque</option>
-                </select>
-            </div>
-
-
-            <br>
-            <!-- Button trigger modal -->
-            <button class = "btn btn-primary" data-bs-toggle = "modal" data-bs-target = "#myModal" type="button">
-                Subir imagen de la propiedad
-            </button>
-            
-
-            <div class="form-group">
-                <br>
-                <label>Precio</label>
-                <input type="number" name="price" class="form-control" placeholder="Precio" min="0" required>
-            </div>
-            <div class="form-group">
-                <br>
-                <label>Descripcion de la propiedad</label>
-                <textarea name="description" class="form-control" placeholder="Descripcion" style="white-space: pre-line;"></textarea>
-            </div>
             <br>
             <div class="card-header3">
-                <label for="x">Coordenada X: </label>
-                <input type="number" name="x"  placeholder="X" id="x" style="width:100px" step="any">
-                <label for="y">Coordenada Y: </label>
-                <input type="number" name="y"  placeholder="Y" id="y" style="width:100px" step="any">
+                <div class="form-group">
+                    <label>Titulo del post</label>
+                    <input name="title" class="form-control" placeholder="Titulo" required/>
+                </div>
+                <div class="form-group">
+                    <input name="image" value = "kill" id= "image" class="form-control" placeholder="Im" type="hidden"/>
+                    <input name="user" value = "<%= user %>" class="form-control" type="hidden"/>
+                </div>
+    
+                <!-- The second value will be selected initially -->
+                <div class="form-group">
+                    <br>
+                    <label>Municipio que mejor describe la ubicación de la vivienda: </label>
+                    <select name="municipio">
+                        <option value="Guadalajara" selected>Guadalajara</option>
+                        <option value="Tlajomulco de Zuñiga">Tlajomulco de Zuñiga</option>
+                        <option value="Zapopan">Zapopan</option>
+                        <option value="Tonalá">Tonalá</option>
+                        <option value="El Salto">El Salto</option>
+                        <option value="Tlaquepaque">Tlaquepaque</option>
+                    </select>
+                </div>
+    
+    
                 <br>
+                <!-- Button trigger modal -->
+                <button class = "btn btn-primary" data-bs-toggle = "modal" data-bs-target = "#myModal" type="button">
+                    Subir imagen de la propiedad
+                </button>
+                
+    
+                <div class="form-group">
+                    <br>
+                    <label>Precio</label>
+                    <input type="number" name="price" class="form-control" placeholder="Precio" min="0" required>
+                </div>
+                <div class="form-group">
+                    <br>
+                    <label>Descripcion de la propiedad</label>
+                    <textarea name="description" class="form-control" placeholder="Descripcion" style="white-space: pre-line;"></textarea>
+                </div>
+                <br>
+            </div>
+            
+            <br>
+            <fieldset class="gllpLatlonPicker">
+                <div class="gllpMap">Google Maps</div>
+                <br/>
+                
+                <div class="card-header3">
+                        Latitud
+                    <input type="text" class="gllpLatitude" name="x" id= "x" value="20.660850688281958" required/>
+                        Longitud
+                    <input type="text" class="gllpLongitude" name="y" id="y" value="-103.35101618503171" required/> 
+                </div>
+                <br/>
+            </fieldset>
+            <div class="card-header3">
                 <label for="rooms">Cantidad de habitaciones: </label>
                 <input type="number" name="rooms"  placeholder="Cantidad" id="rooms" style="width:100px" value="0" min="0" required>
                 <br>
@@ -125,14 +136,19 @@
                 
             </div>
             <br>
-            <br>
-            <label>¿Permite que los datos de la casa se usen para el predictor? </label>
-            <input type="radio" id="dataYes" name="partOfData" value=1>
-            <label for="dataYes">Si</label>
-            <input type="radio" id="dataNo" name="partOfData" value=0 checked>
-            <label for="dataNo">No</label>
-            <br>
-            <input type="submit" class="btn btn-info" value="POST" onsubmit="this.disabled=true;load_page('form-id');return false;"/>
+
+            <div class="card-header3">
+                <br>
+                <label>¿Permite que los datos de la casa se usen para el predictor? </label>
+                <input type="radio" id="dataYes" name="partOfData" value=1>
+                <label for="dataYes">Si</label>
+                <input type="radio" id="dataNo" name="partOfData" value=0 checked>
+                <label for="dataNo">No</label>
+                <br>
+                <input type="submit" class="btn btn-info" value="POST" onsubmit="this.disabled=true;load_page('form-id');return false;"/>
+                <br>
+                <br>
+            </div>
             <br>
         </form>
 
