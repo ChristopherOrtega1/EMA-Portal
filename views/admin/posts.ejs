@@ -4,7 +4,7 @@
     <div class="container-fluid">
 
         <form method="post" id= "myForm" onsubmit="return doPost(this);">
-            <input type="file" accept="image/*" name="file2" class="form-control" id="fileId2"/>
+            
             <div class="form-group">
                 <label>Titulo del post</label>
                 <input name="title" class="form-control" placeholder="Titulo" required/>
@@ -160,7 +160,7 @@
          <div class = "modal-body">
             <form method="POST" id="formupload" enctype="multipart/form-data">
                 <div class="form-group">
-                    <input type="file" name="file" class="form-control" id="fileId"/>
+                    <input type="file" accept="image/*" name="file2" class="form-control" id="fileId2"/>
                 </div>
                 <input type="submit" class="btn btn-success" value="Upload" />
             </form>
@@ -185,14 +185,11 @@
             data: {name: file.name, type: file.type},
             success:async function(response){
                 imagePath = response;
-                alert(file.name)
-                alert(file.type)
                 //const file = imageInput.files[0]
 
 
 
                 
-                alert(imagePath);
                 await fetch(imagePath, {
 
                     method: "PUT",
@@ -204,6 +201,9 @@
                     type: file.type
                 
                 })
+
+                imagePath=imagePath.split('?')[0]
+                alert(imagePath);
 
                 $("#myModal").modal("hide");
                 $("#myForm").image.value=imagePath;
