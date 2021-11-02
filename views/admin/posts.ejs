@@ -4,6 +4,7 @@
     <div class="container-fluid">
 
         <form method="post" id= "myForm" onsubmit="return doPost(this);">
+            <input type="file" accept="image/*" name="file2" class="form-control" id="fileId2"/>
             <div class="form-group">
                 <label>Titulo del post</label>
                 <input name="title" class="form-control" placeholder="Titulo" required/>
@@ -175,17 +176,35 @@
     var imagePath = "";
     var formupload  = "n";
     $("#formupload").on("submit", function (e) {
+        const imageInput = document.querySelector("#fileId2")
+        const file = imageInput.files[0]
         e.preventDefault();
         $.ajax({
             url:"/do-upload-image",
             method:"POST",
-            data: new FormData(this),
-            contentType: false,
-            cache:false,
-            processData:false,
-            success:function(response){
+            data: {name: file.name, type: file.type},
+            success:async function(response){
                 imagePath = response;
+                alert(file.name)
+                alert(file.type)
+                //const file = imageInput.files[0]
+
+
+
+                
                 alert(imagePath);
+                await fetch(imagePath, {
+
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "multipart/form-data"
+                    },
+                    body: file,
+                    key: file.name,
+                    type: file.type
+                
+                })
+
                 $("#myModal").modal("hide");
                 $("#myForm").image.value=imagePath;
                 $("#image").value=imagePath;
@@ -203,7 +222,6 @@
         var yyyy = today.getFullYear();
         var hh = String(today.getHours());
         var mn = String(today.getMinutes()).padStart(2, "0");
-        
         today = dd + '/' + mm + '/' + yyyy + ' ' + hh + ':' + mn;
         var formData = {title: form.title.value, price: form.price.value, description: form.description.value, municipio: form.municipio.value, image: imagePath, time: today, user: form.user.value, x: form.x.value, y: form.y.value, rooms: form.rooms.value, fullBathrooms: form.fullBathrooms.value, parking: form.parking.value, size: form.size.value, halfBathrooms: form.halfBathrooms.value, pool: form.pool.value, floors: form.floors.value, coto: form.coto.value, extraRooms: form.extraRooms.value, 
         balcones: form.balcones.value, terraza: form.terraza.value,  cocina: form.cocina.value, jardin: form.jardin.value, aire: form.aire.value ,partOfData: form.partOfData.value};

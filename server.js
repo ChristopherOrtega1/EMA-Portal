@@ -21,10 +21,11 @@ var session = require("express-session");
 
 var crypto = require('crypto');
 
-const { uploadFile } = require('./s3');
+const { generateUploadURL } = require( './s3');
+
 const { format } = require("path");
 var algorithm = 'aes-256-ctr';
-var password = process.env.CRYPTKEY;
+var password = "'d6F3Efeqs'";
 
 
 
@@ -110,20 +111,20 @@ MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {
 
     });
 
-    app.post("/do-upload-image", function(req, res) {
+    app.get('/s3Url', async(req, res) => {
+        console.log("url")
+        const url =  await generateUploadURL();
+        console.log(url)
+        res.send({url})
+    })
+
+
+    app.post("/do-upload-image", async function(req, res){
         console.log("Sent");
-        var formData = new formidable.IncomingForm();
-        formData.parse(req, function(error, fields, files ){
-            console.log(files.file);
-            var oldPath= files.file.path;
-            var newPath = "static/images/"+files.file.name;
-            fs.rename(oldPath, newPath, async function(err){
-                files.file.path = newPath;
-                const result = await uploadFile(files.file);
-                console.log(result);
-                res.send("/"+ newPath);
-            });
-        });
+        const url =  await generateUploadURL(req.body.name, req.body.type);
+        console.log(url);
+        res.send(url);
+
     });
 
     app.get("/admin/dashboard", function (req, res){
