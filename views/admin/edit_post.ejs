@@ -232,7 +232,7 @@
             <form method="POST" id="form-upload" enctype="multipart/form-data">
                 <input type="hidden" name="image" value ="<%= post.image %>">
                 <div class="form-group">
-                    <input type="file" name="file" class="form-control" />
+                    <input type="file" accept="image/*" name="file2" class="form-control" id="fileId2"/>
                 </div>
                 <input type="submit" class="btn btn-success" value="Upload" />
             </form>
@@ -264,22 +264,37 @@
         }
 
 
+
     $("#form-upload").on("submit", function (e) {
+        const imageInput = document.querySelector("#fileId2")
+        const file = imageInput.files[0]
         e.preventDefault();
         $.ajax({
-            url:"/do-update-image",
+            url:"/do-upload-image",
             method:"POST",
-            data: new FormData(this),
-            contentType: false,
-            cache:false,
-            processData:false,
-            success:function(response){
-                image = response;
+            data: {name: file.name, type: file.type},
+            success:async function(response){
+                imagePath = response;
+                //const file = imageInput.files[0]
+                await fetch(imagePath, {
+
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "multipart/form-data"
+                    },
+                    body: file,
+                    key: file.name,
+                    type: file.type
+                
+                })
+
+                image=imagePath.split('?')[0]
+                alert("Imagen actualizada");
+
                 $("#myModal").modal("hide");
+
             }
         });
     });
-
-    
     </script>
  <%- include('footer'); -%>

@@ -186,10 +186,6 @@
             success:async function(response){
                 imagePath = response;
                 //const file = imageInput.files[0]
-
-
-
-                
                 await fetch(imagePath, {
 
                     method: "PUT",
@@ -203,7 +199,7 @@
                 })
 
                 imagePath=imagePath.split('?')[0]
-                alert(imagePath);
+                alert("Imagen anexada");
 
                 $("#myModal").modal("hide");
                 $("#myForm").image.value=imagePath;

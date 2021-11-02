@@ -25,7 +25,7 @@ const { generateUploadURL } = require( './s3');
 
 const { format } = require("path");
 var algorithm = 'aes-256-ctr';
-var password = "'d6F3Efeqs'";
+var password = process.env.CRYPTKEY;
 
 
 
@@ -334,20 +334,7 @@ MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {
         });
     });
 
-    app.post("/do-update-image", function(req, res){
-        
-        var formData = new formidable.IncomingForm();
-        formData.parse(req, function(error, fields, files ){
-            fs.unlink(fields.image.replace("/",""), function (error){
-                var oldPath= files.file.path;
-                var newPath = "static/images/"+files.file.name;
-                fs.rename(oldPath, newPath, function(err){
-                    res.send("/"+ newPath);
-                });
-            });
 
-        });
-    });
 
     app.post("/do-delete", function (req, res) {
         if( req.session.admin){
