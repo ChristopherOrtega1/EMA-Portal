@@ -66,14 +66,17 @@ MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {
     var blog = client.db("EMA");
     console.log("DB connected");
 
-    app.get("/", function(req, res){
-        blog.collection("posts").find().toArray(function(error, posts){
-            posts = posts.reverse();
-            res.render("user/home", {posts: posts});
-        });
+
+    app.get("/get-posts/:start/:limit", function(req, res){
+        blog.collection("posts").find().sort({
+            "_id": -1
+        }).skip(parseInt(req.params.start)).limit(parseInt(req.params.limit)).toArray(
+            function(error, posts){
+                res.send(posts)
+            });
     });
 
-    app.post("/", function(req, res){
+    app.post("/:page?", function(req, res){
         blog.collection("posts").find().toArray(function(error, posts){
             console.log(req.body);
             posts = posts.reverse();
@@ -388,7 +391,27 @@ MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {
                 console.log("email is not verified");
             }*/
         });
-
+        app.get("/:page?", function(req, res){
+            if(req.params.page == null)
+            {
+                page=1;
+            }else{
+                page = parseInt(req.params.page)
+            }
+            if(Number.isNaN(page)){
+                res.render("user/error");
+            }else if (page < 1) {
+                res.render("user/error");
+            }
+            page= page -1 
+            
+            pageContent = page * 8
+            
+    
+            blog.collection("posts").find().sort({"_id": -1}).skip(pageContent).limit(8).toArray(function(error, posts){
+                res.render("user/home", {posts: posts, page:page});
+            });
+        });
         app.get('*', function(req, res){
             res.render("user/error");
           });

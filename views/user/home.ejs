@@ -34,7 +34,20 @@
                             </div>
                         </div>
                     <% }) %>
+                    <div class="row" style="  display: flex;justify-content:center;">
+                            <button type="button" class="btn btn-info" onclick="getPrior();" style="width: 50px;background-color:rgb(33, 37, 41);border-color: rgb(33, 37, 41); color:cornsilk">
+                               <b><</b>
+                            </button>
+                            <input type="number" readonly id="pageCounter" value= "<%= page + 1 %>" required min= 1 style="width: 65px;background-color:rgb(33, 37, 41);border-color:cornsilk; color:cornsilk">
+
+                            <button type="button" class="btn btn-info" onclick="getNext();" style="width: 50px;background-color:rgb(33, 37, 41);border-color: rgb(33, 37, 41); color: cornsilk;">
+                               <b>></b> 
+                            </button>
+                    </div>
+                    <br>
+                    <br>
                 </div>
+
                 <!-- Side widgets-->
                 <div class="col-lg-4">
                     <!-- Search widget-->
@@ -122,4 +135,18 @@
             return false;
         }
     </script> 
+    <script>
+        var start= parseInt(document.getElementById('pageCounter').value)
+        nextPage= start + 1
+        priorPage = start - 1 
+        if (priorPage < 1) {
+            priorPage = 1
+        }
+        function getNext(){
+            window.location = "/"+nextPage
+        }
+        function getPrior(){
+            window.location = "/"+priorPage
+        }
+    </script>
 <%- include('footer'); -%>
