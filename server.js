@@ -66,7 +66,31 @@ MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {
     var blog = client.db("EMA");
     console.log("DB connected");
 
+    app.get("/", function(req, res){
+        res.render("user/splash");
+    });
 
+    app.get("/main:page?", function(req, res){
+        if(req.params.page == null)
+        {
+            page=1;
+        }else{
+            page = parseInt(req.params.page)
+        }
+        if(Number.isNaN(page)){
+            res.render("user/error");
+        }else if (page < 1) {
+            res.render("user/error");
+        }
+        page= page -1 
+        
+        pageContent = page * 8
+        
+
+        blog.collection("posts").find().sort({"_id": -1}).skip(pageContent).limit(8).toArray(function(error, posts){
+            res.render("user/home", {posts: posts, page:page});
+        });
+    });
     app.get("/get-posts/:start/:limit", function(req, res){
         blog.collection("posts").find().sort({
             "_id": -1
@@ -76,7 +100,9 @@ MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {
             });
     });
 
-    app.post("/:page?", function(req, res){
+
+
+    app.post("/main:page?", function(req, res){
         blog.collection("posts").find().toArray(function(error, posts){
             console.log(req.body);
             posts = posts.reverse();
@@ -269,7 +295,7 @@ MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {
                 res.render("admin/edit_post", {"post": post,user: req.session.currentUser})
                 }
                 else{
-                    res.redirect("/");
+                    res.redirect("/main");
                 }
 
             }); 
@@ -368,7 +394,7 @@ MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {
                 });
             });
         }else{
-            res.redirect("/");
+            res.redirect("/main");
         }
     });
 
@@ -391,27 +417,7 @@ MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {
                 console.log("email is not verified");
             }*/
         });
-        app.get("/:page?", function(req, res){
-            if(req.params.page == null)
-            {
-                page=1;
-            }else{
-                page = parseInt(req.params.page)
-            }
-            if(Number.isNaN(page)){
-                res.render("user/error");
-            }else if (page < 1) {
-                res.render("user/error");
-            }
-            page= page -1 
-            
-            pageContent = page * 8
-            
-    
-            blog.collection("posts").find().sort({"_id": -1}).skip(pageContent).limit(8).toArray(function(error, posts){
-                res.render("user/home", {posts: posts, page:page});
-            });
-        });
+
         app.get('*', function(req, res){
             res.render("user/error");
           });
