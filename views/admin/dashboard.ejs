@@ -2,10 +2,20 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">
-                            Publicaciones de <%= user %>
-                        </h1>
+                        <% if (superUser == "1") { %>
+                            <h1 class="mt-4">
+                                Dashboard de <%= user %> (Super User) 
+                            </h1>
+                        <% } else { %>
+                            <h1 class="mt-4">
+                                Publicaciones de <%= user %>
+                            </h1>
+
+                        <% } %>
+                        
                         <br>
+
+                        <% if (superUser == "0") { %>
                         <div class="col-lg-8" id="posts">
                             <!-- Featured blog post-->
                             <% posts.forEach(function(post) { %>
@@ -43,6 +53,49 @@
                                 <% } %>
                             <% }) %>
                         </div>
+                        <% } else { %>
+                            <div class="col-lg-8" id="posts">
+                                <!-- Featured blog post-->
+                                <% posts.forEach(function(post) { %>
+                                    <div class="card mb-4" id="post-<%= post._id %>">
+                                        <div class="card-header2">
+                                            <label><b>
+                                                <%= post.municipio %>
+                                            </b></label>
+                                        </div>
+                                        <a href="#!">
+                                            <% if (post.image != "" ) { %>
+                                                 <img class="card-img-top" src="<%= post.image %>" alt="..." />
+                                            <% } else { %>
+                                                <img class="card-img-top" src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="..." />
+                                            <% } %>
+                                        </a>
+                                        <div class="card-body">
+                                            <div class="small text-muted">
+                                                <%= post.time %> by <%= post.user %>
+                                            </div>
+                                            <h2 class="card-title">
+                                                <%= post.title %>
+                                            </h2>
+                                            <p class="card-text">
+                                                $<%= post.price %>
+                                            </p>
+                                            <a class="btn btn-primary" href="/posts/<%= post._id %>">Leer mas →</a>
+                                            <a class="btn btn-warning" href="/posts/edit/<%= post._id %>">Editar</a>
+                                            <button type="button" class="btn btn-danger" onclick="doDelete('<%= post._id %>', '<%= post.image %>');">
+                                                Eliminar Post 
+                                            </button>
+                                            <% if (post.partOfData == "1") { %>
+                                                <button type="button" class="btn btn-danger" onclick="doDelete2('<%= post._id %>', '<%= post.image %>');">
+                                                    Eliminar Post + Registro en Dataset
+                                                </button>
+                                            <% } %>
+                                        </div>
+                                    </div>
+                                <% }) %>
+                            </div>
+
+                        <% } %>
 
                     </div>
                 </main>
@@ -51,6 +104,29 @@
         if (confirm("¿Seguro que desea eliminar el post?")) {
         $.ajax({
             url: "/do-delete",
+            method: "POST",
+            data: {
+                "_id": postId,
+                "image": image
+            },
+            success: function (response) {
+                var socket = io();
+                socket.emit("delete_post", postId);
+                alert(response);
+                document.getElementById("post-"+postId).remove();
+            }
+        });
+
+    }
+    
+    }
+</script>
+
+<script>
+    function doDelete2(postId, image){
+        if (confirm("¿Seguro que desea eliminar el post (y su correspondiente registro en el dataset)?")) {
+        $.ajax({
+            url: "/do-delete2",
             method: "POST",
             data: {
                 "_id": postId,

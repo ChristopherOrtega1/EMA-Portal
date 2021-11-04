@@ -32,7 +32,8 @@ var password = process.env.CRYPTKEY;
 app.use(session({
     key: "admin",
     secret: "any random string",
-    currentUser:""
+    currentUser:"",
+    super:""
 }));
 
 var smtpTransport = nodemailer.createTransport({
@@ -130,7 +131,7 @@ MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {
         if( req.session.admin){
             blog.collection("posts").find().toArray(function(error, posts){
                 posts = posts.reverse();
-                res.render("admin/dashboard", {user: req.session.currentUser, posts: posts});
+                res.render("admin/dashboard", {user: req.session.currentUser, superUser: req.session.super, posts: posts});
             });
         }else{
             res.redirect("/admin")
@@ -169,6 +170,7 @@ MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {
                 console.log(admin);
                 req.session.admin = admin;
                 req.session.currentUser = admin.username;
+                req.session.super = admin.super;
                 res.send(admin);
             }
             else{
@@ -191,7 +193,8 @@ MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {
             "password": encrypt(req.body.password),
             "username": req.body.username,
             "auth": "0",
-            "authKey":  encrypt(authKey.toString())
+            "authKey":  encrypt(authKey.toString()),
+            "super": "0"
             }, function(error, document){
             res.send("Usuario registrado correctamente");
             link="https://ema-portal.herokuapp.com/verificar?authKey="+authKey;
@@ -259,7 +262,7 @@ MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {
                 "_id": ObjectId(req.params.id)
             }, function (error, post) {
                 console.log(post.user);
-                if(post.user == req.session.admin.username){
+                if(post.user == req.session.admin.username || req.session.super == "1"){
                 res.render("admin/edit_post", {"post": post,user: req.session.currentUser})
                 }
                 else{
@@ -349,6 +352,23 @@ MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {
             res.redirect("/admin");
         }
     });
+
+    app.post("/do-delete2", function (req, res) {
+        if( req.session.super == "1"){
+
+            fs.unlink(req.body.image.replace("/", ""), function (error){
+                blog.collection("posts").deleteOne({
+                    "_id": ObjectId(req.body._id)
+                }, function(error, document) {
+                    blog.collection("casas").deleteOne({"post_id": ObjectId(req.body._id)})
+                    res.send("Eliminado");
+                });
+            });
+        }else{
+            res.redirect("/");
+        }
+    });
+
 
 
     app.get('/verificar',function(req,res){
