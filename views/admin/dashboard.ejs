@@ -1,7 +1,7 @@
 <%- include('header'); -%>
             <div id="layoutSidenav_content">
                 <main>
-                    <div class="container-fluid px-4">
+                    <div class="container-fluid px-4" style="text-align: center;">
                         <% if (superUser == "1") { %>
                             <h1 class="mt-4">
                                 Dashboard de <%= user %> (Super User) 
@@ -16,7 +16,7 @@
                         <br>
 
                         <% if (superUser == "0") { %>
-                        <div class="col-lg-8" id="posts">
+                        <div  id="posts" style="margin-right: 10%; margin-left: 10%;">
                             <!-- Featured blog post-->
                             <% posts.forEach(function(post) { %>
                                 <% if (post.user == user) { %>
@@ -54,7 +54,7 @@
                             <% }) %>
                         </div>
                         <% } else { %>
-                            <div class="col-lg-8" id="posts">
+                            <div id="posts" style="margin-right: 10%; margin-left: 10%;">
                                 <!-- Featured blog post-->
                                 <% posts.forEach(function(post) { %>
                                     <div class="card mb-4" id="post-<%= post._id %>">
