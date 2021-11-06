@@ -210,6 +210,10 @@ MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {
     });
 
     app.post("/do-user-create", function(req, res){
+        blog.collection("admins").findOne({"username": req.body.username}, function(error, admin){
+            if(admin != null) {
+                res.send("El nombre de usuario ya ha sido utilizado para dar de alta otra cuenta");
+            }else{
         blog.collection("admins").findOne({"email": req.body.email}, function(error, admin){
             if(admin != null){
                 console.log("Correo ya usado");
@@ -242,8 +246,10 @@ MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {
             });
         }); 
     }
-    });
 
+    });
+}
+        });
     });
 
     app.post("/admin/posts", function(req, res) {
