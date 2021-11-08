@@ -25,7 +25,7 @@ const { generateUploadURL } = require( './s3');
 
 const { format } = require("path");
 var algorithm = 'aes-256-ctr';
-var password = process.env.CRYPTKEY;
+var password = "'d6F3Efeqs'";
 
 
 
@@ -200,6 +200,7 @@ MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {
                 req.session.admin = admin;
                 req.session.currentUser = admin.username;
                 req.session.super = admin.super;
+                req.session.cookie.maxAge = 365 * 24 * 60 * 60 * 1000;
                 res.send(admin);
             }
             else{
