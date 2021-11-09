@@ -1,17 +1,25 @@
 <%- include('header'); -%>
             <div id="layoutSidenav_content">
+
                 <main>
                     <div class="container-fluid px-4" style="text-align: center;">
-                        <% if (superUser == "1") { %>
-                            <h1 class="mt-4">
-                                Dashboard de <%= user %> (Super User) 
-                            </h1>
-                        <% } else { %>
-                            <h1 class="mt-4">
-                                Publicaciones de <%= user %>
-                            </h1>
+                        
+                        <br>
 
-                        <% } %>
+                        <div class="finalContainer" style="color: white;background-color: #272727;">
+                            
+                            <% if (superUser == "1") { %>
+                                <h1 class="mt-4">
+                                    Dashboard de <%= user %> (Super User) 
+                                </h1>
+                            <% } else { %>
+                                <h1 class="mt-4">
+                                    Publicaciones de <%= user %>
+                                </h1>
+
+                            <% } %>
+
+                        </div>
                         
                         <br>
 
@@ -20,12 +28,13 @@
                             <!-- Featured blog post-->
                             <% posts.forEach(function(post) { %>
                                 <% if (post.user == user) { %>
-                                <div class="card mb-4" id="post-<%= post._id %>">
-                                    <div class="card-header2">
+                                <div class="finalContainer" id="post-<%= post._id %>">
+                                    <div class="card-header2" style="margin-inline-start: -12px;margin-inline-end: -12px;background-color: #272727;">
                                         <label><b>
                                             <%= post.municipio %>
                                         </b></label>
                                     </div>
+                                    <br>
                                     <a href="#!">
                                         <% if (post.image != "" ) { %>
                                              <img class="card-img-top" src="<%= post.image %>" alt="..." />
@@ -37,10 +46,10 @@
                                         <div class="small text-muted">
                                             <%= post.time %> by <%= post.user %>
                                         </div>
-                                        <h2 class="card-title">
+                                        <h2 class="card-title" style="color: black;">
                                             <%= post.title %>
                                         </h2>
-                                        <p class="card-text">
+                                        <p class="card-text" style="color: black;">
                                             $<%= post.price %>
                                         </p>
                                         <a class="btn btn-primary" href="/posts/<%= post._id %>">Leer mas →</a>
@@ -50,6 +59,7 @@
                                         </button>
                                     </div>
                                 </div>
+                                <br>
                                 <% } %>
                             <% }) %>
                         </div>
@@ -57,12 +67,13 @@
                             <div id="posts" style="margin-right: 10%; margin-left: 10%;">
                                 <!-- Featured blog post-->
                                 <% posts.forEach(function(post) { %>
-                                    <div class="card mb-4" id="post-<%= post._id %>">
-                                        <div class="card-header2">
+                                    <div class="finalContainer" id="post-<%= post._id %>">
+                                        <div class="card-header2" style="margin-inline-start: -12px;margin-inline-end: -12px;background-color: #272727;">
                                             <label><b>
                                                 <%= post.municipio %>
                                             </b></label>
                                         </div>
+                                        <br>
                                         <a href="#!">
                                             <% if (post.image != "" ) { %>
                                                  <img class="card-img-top" src="<%= post.image %>" alt="..." />
@@ -74,10 +85,10 @@
                                             <div class="small text-muted">
                                                 <%= post.time %> by <%= post.user %>
                                             </div>
-                                            <h2 class="card-title">
+                                            <h2 class="card-title" style="color: black;">
                                                 <%= post.title %>
                                             </h2>
-                                            <p class="card-text">
+                                            <p class="card-text" style="color: black;">
                                                 $<%= post.price %>
                                             </p>
                                             <a class="btn btn-primary" href="/posts/<%= post._id %>">Leer mas →</a>
@@ -92,6 +103,7 @@
                                             <% } %>
                                         </div>
                                     </div>
+                                    <br>
                                 <% }) %>
                             </div>
 

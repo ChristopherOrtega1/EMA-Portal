@@ -1,5 +1,17 @@
 <%- include('header'); -%>
         <!-- Page content-->
+        <% if (Number(minimo) > Number(maximo)) { %>
+            <div class="card-header3" style="background-color: rgb(33, 37, 41);">
+                <p>
+                    Busqueda erronea
+                </p>
+            </div>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+        <% } else { %>
         <div class="card-header3" style="background-color: rgb(33, 37, 41);">
             <h1>
                 Resultados en <%= municipioDeseado %>
@@ -49,5 +61,6 @@
                     <% }) %>
                 </div>
         </div>
+        <% } %>
 
 <%- include('footer'); -%>
