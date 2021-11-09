@@ -7,13 +7,14 @@
                 <div class="col-lg-8" id="posts">
                     <!-- Featured blog post-->
                     <% posts.forEach(function(post) { %>
-                        <div class="card mb-4" id="post-<%= post._id %>">
-                            <div class="card-header2">
+                        <div class="finalContainer" id="post-<%= post._id %>">
+                            <div class="card-header2"  style="margin-inline-start: -12px;margin-inline-end: -12px;">
                                 <label><b>
                                     <%= post.municipio %>
                                 </b></label>
                             </div>
-                            <a href="#!">
+                            <br>
+                            <a href="#!" >
                                 <% if (post.image != "" ) { %>
                                      <img class="card-img-top" src="<%= post.image %>" alt="..." />
                                 <% } else { %>
@@ -24,15 +25,16 @@
                                 <div class="small text-muted">
                                     <%= post.time %> by <%= post.user %>
                                 </div>
-                                <h2 class="card-title">
+                                <h2 class="card-title" style="color: black;">
                                     <%= post.title %>
                                 </h2>
-                                <p class="card-text">
+                                <p class="card-text" style="color: black;">
                                     $<%= post.price %>
                                 </p>
                                 <a class="btn btn-primary" href="posts/<%= post._id %>">Leer mas →</a>
                             </div>
                         </div>
+                        <br>
                     <% }) %>
                     <div class="row" style="  display: flex;justify-content:center;">
                             <button type="button" class="btn btn-info" onclick="getPrior();" style="width: 50px;background-color:rgb(33, 37, 41);border-color: rgb(33, 37, 41); color:cornsilk">
@@ -51,11 +53,11 @@
                 <!-- Side widgets-->
                 <div class="col-lg-4">
                     <!-- Search widget-->
-                    <div class="card mb-4">
-                        <div class="card-header2"><i class="fas fa-search-dollar" style="color:white;"></i><b>Busqueda</b></div>
+                    <div class="finalContainer">
+                        <div class="card-header2"  style="margin-inline-start: -12px;margin-inline-end: -12px;"><i class="fas fa-search-dollar" style="color:white;"></i><b>Búsqueda</b></div>
                         <div class="card-body2">
                             <form method="POST" onsubmit="doSearch(this);">
-                                    <label><b>Municipio:   </b></label>
+                                    <label style="color: black;"><b>Municipio:   </b></label>
                                     <select name="municipio" id="municipioDeseado" style="background-color:rgb(33, 37, 41);border-color: rgb(33, 37, 41); color: cornsilk;">
                                         <option value="Guadalajara" selected>Guadalajara</option>
                                         <option value="Tlajomulco de Zuñiga">Tlajomulco de Zuñiga</option>
@@ -66,11 +68,11 @@
                                     </select>
                                     <br>
                                     <br>
-                                    <label><b>Precio minimo:   </b></label>
-                                    <input type="number" id="minimo" name="minimo" min="0" max="1000000000" value= 0 style="background-color:rgb(33, 37, 41);border-color: rgb(33, 37, 41); color: cornsilk;">
+                                    <label style="color: black;"><b>Precio mínimo:</b></label>
+                                    <input type="number" id="minimo" name="minimo" min="0" max="10000000000000" value= 0 style="background-color:rgb(33, 37, 41);border-color: rgb(33, 37, 41); color: cornsilk;">
                                     <br>
                                     <br>
-                                    <label><b>Precio maximo:   </b></label>
+                                    <label style="color: black;"><b>Precio máximo:</b></label>
                                     <input type="number" id="maximo" name="maximo" min="0" max="10000000000000" value=99999999 style="background-color:rgb(33, 37, 41);border-color: rgb(33, 37, 41); color: cornsilk;">
                                     <br>
                                     <br>
@@ -78,6 +80,7 @@
                             </form>
                         </div>
                     </div>
+                    <br>
 
                 </div>
             </div>
@@ -91,12 +94,13 @@
 
                 var html = "";
 
-                html += '<div class="card mb-4" id='+ "post-"+formData._id +'>';
-                    html += '<div class="card-header2">';
+                html += '<div class="finalContainer" id='+ "post-"+formData._id +'>';
+                    html += '<div class="card-header2" style="margin-inline-start: -12px;margin-inline-end: -12px;">';
                         html += '<label><b>';
                             html +=  formData.municipio;
                         html += '</b></label>';
                     html += '</div>';
+                    html += '<br>';
                     html += '<a href="#!">';
                         if (formData.image != "" ) {
                             html += '<img class="card-img-top" src="' + formData.image +'" alt="..." />';
@@ -108,15 +112,16 @@
                         html += '<div class="small text-muted">';
                             html += formData.time + ' by ' +formData.user;
                             html += '</div>';
-                            html += '<h2 class="card-title">';
+                            html += '<h2 class="card-title" style="color: black;">';
                             html += formData.title;
                             html += '</h2>';
-                            html += '<p class="card-text">';
+                            html += '<p class="card-text" style="color: black;">';
                                 html += '$'+formData.price;
                             html += '</p>';
                             html += '<a class="btn btn-primary" href="posts/' + formData._id + '">Leer mas →</a>';
                     html += '</div>';
                 html += '</div>';
+                html += '<br>';
                 $("#posts").prepend(html);
             });
         </script>

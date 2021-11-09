@@ -1,6 +1,6 @@
 <%- include('header'); -%>
         <!-- Page content-->
-        <div class="card-header3">
+        <div class="card-header3" style="background-color: rgb(33, 37, 41);">
             <h1>
                 Resultados en <%= municipioDeseado %>
             </h1>
@@ -17,12 +17,13 @@
                     <!-- Featured blog post-->
                     <% posts.forEach(function(post) { %>
                         <% if(post.municipio == municipioDeseado && Number(post.price) >= Number(minimo) && Number(post.price) <= Number(maximo) ) { %>
-                        <div class="card mb-4">
-                            <div class="card-header2">
+                        <div class="finalContainer">
+                            <div class="card-header2" style="margin-inline-start: -12px;margin-inline-end: -12px;">
                                 <label><b>
                                     <%= post.municipio %>
                                 </b></label>
                             </div>
+                            <br>
                             <a href="#!">
                                 <% if (post.image != "" ) { %>
                                      <img class="card-img-top" src="<%= post.image %>" alt="..." />
@@ -34,15 +35,16 @@
                                 <div class="small text-muted">
                                     <%= post.time %> by <%= post.user %>
                                 </div>
-                                <h2 class="card-title">
+                                <h2 class="card-title" style="color: black;">
                                     <%= post.title %>
                                 </h2>
-                                <p class="card-text">
+                                <p class="card-text" style="color: black;">
                                     $<%= post.price %>
                                 </p>
-                                <a class="btn btn-primary" href="posts/<%= post._id %>">Read more →</a>
+                                <a class="btn btn-primary" href="posts/<%= post._id %>">Leer mas →</a>
                             </div>
                         </div>
+                        <br>
                         <% } %>
                     <% }) %>
                 </div>

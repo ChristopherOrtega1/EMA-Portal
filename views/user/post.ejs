@@ -6,19 +6,23 @@
                     <article>
                         <!-- Post header-->
                         <header class="mb-4-alt">
-                            <div class="card-header2">
-                                <label><b>
-                                    <%= post.municipio %>
-                                </b></label>
-                            </div>
-                            <br>
-                            <!-- Post title-->
-                            <h1 class="fw-bolder mb-1">
-                                <%= post.title %>
-                            </h1>
-                            <!-- Post meta content-->
-                            <div class="text-muted fst-italic mb-2">
-                                <%= post.time %> by <%= post.user %>
+                            <div class="finalContainer">
+                                <div class="card-header2" style="background-color: #272727;
+                                    margin-inline-start: -12px;
+                                    margin-inline-end: -12px;">
+                                    <label><b>
+                                        <%= post.municipio %>
+                                    </b></label>
+                                </div>
+                                <br>
+                                <!-- Post title-->
+                                <h1 class="fw-bolder mb-1" style="color: rgb(17, 17, 17);">
+                                    <%= post.title %>
+                                </h1>
+                                <!-- Post meta content-->
+                                <div class="text-muted fst-italic mb-2">
+                                    <%= post.time %> by <%= post.user %>
+                                </div>
                             </div>
                             <br>
                             <br>
@@ -31,103 +35,157 @@
                                 <% } %>
                             </figure>
                             <br>
-                            <!-- Post content-->
-                            <section class="mb-5">
-                                <p class="card-header4">
-                                    $<%= post.price %>
-                                </p>
-                            </section>
-                            <section>
-                                <div class="fs-5" style="white-space:pre-line;"><b>
-                                    <%= post.description %>
-                                </b></div>
-                            </section>
+
+                            <div class="finalContainer">
+                                <br>
+                                <!-- Post content-->
+                                <section class="mb-5">
+                                    <p class="card-header4">
+                                        $<%= post.price %>
+                                    </p>
+                                </section>
+                                <section>
+                                    <div class="fs-5" style="white-space:pre-line; color: rgb(17, 17, 17);" >
+                                        <%= post.description %>
+                                    </div>
+                                </section>
+
+                                <fieldset class="gllpLatlonPicker">
+                                    <br/><br/>
+                                    <div class="gllpMap">Google Maps</div>
+                                    <br/>
+                                        <input type="text" hidden class="gllpLatitude" value=<%= post.x %>> 
+                                        <input type="text" hidden class="gllpLongitude" value=<%= post.y %>>  
+                                    
+                                </fieldset>
+                            </div>
+
+                            <br>
                             <br>
 
-                            <fieldset class="gllpLatlonPicker">
-                                <br/><br/>
-                                <div class="gllpMap">Google Maps</div>
-                                <br/>
-                                    <input type="text" hidden class="gllpLatitude" value=<%= post.x %>> 
-                                    <input type="text" hidden class="gllpLongitude" value=<%= post.y %>>  
-                                <br/>
+                            <fieldset class="finalContainer" style="margin-left: 15%;margin-right: 15%;" >
+                                <br>
+                                <br>
+                                <div class="input_box">
+                                    <div class="icon">
+                                        <i class="fas fa-border-style"></i>
+                                        Terreno: <%= post.size %>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="input_box">
+                                    <div class="icon">
+                                        <i class="fas fa-bed"></i>
+                                        Recamaras: <%= post.rooms %>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="input_box">
+                                    <div class="icon">
+                                        <i class="fas fa-shower"></i>
+                                        Baños: <%= post.fullBathrooms %>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="input_box">
+                                    <div class="icon">
+                                        <i class="fas fa-car"></i>
+                                        Estacionamientos: <%= post.parking %>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="input_box">
+                                    <div class="icon">
+                                        <i class="fas fa-toilet"></i>
+                                        Medios Baños: <%= post.halfBathrooms %>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="input_box">
+                                    <div class="icon">
+                                        <i class="fas fa-person-booth"></i>
+                                        Balcones: <%= post.balcones %>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="input_box">
+                                    <div class="icon">
+                                        <i class="fas fa-door-closed"></i>
+                                        Cuartos Adicionales: <%= post.extraRooms %>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="input_box">
+                                    <div class="icon">
+                                        <i class="fas fa-building"></i>
+                                        Pisos: <%= post.floors %>
+                                    </div>
+                                </div>
+
+                                <br>
+
+                                <% if(post.pool == "1") { %>
+                                    <div class="input_box">
+                                        <div class="icon">
+                                            <i class="fas fa-swimming-pool"></i>
+                                            Alberca
+                                        </div>
+                                    </div>
+                                    <br>
+                                <% } %>
+
+
+                                <% if(post.coto == "1") { %>
+                                    <div class="input_box">
+                                        <div class="icon">
+                                            <i class="fas fa-city"></i>
+                                            En Coto
+                                        </div>
+                                    </div>
+                                    <br>
+                                <% } %>
+
+                                <% if(post.terraza == "1") { %>
+                                    <div class="input_box">
+                                        <div class="icon">
+                                            <i class="fas fa-street-view"></i>
+                                            Terraza
+                                        </div>
+                                    </div>
+                                    <br>
+                                <% } %>
+                                
+                                <% if(post.jardin == "1") { %>
+                                    <div class="input_box">
+                                        <div class="icon">
+                                            <i class="fas fa-tree"></i>
+                                            Jardin
+                                        </div>
+                                    </div>
+                                    <br>
+                                <% } %>
+
+                                <% if(post.aire == "1") { %>
+                                    <div class="input_box">
+                                        <div class="icon">
+                                            <i class="fas fa-wind"></i>
+                                            Aire acondicionado
+                                        </div>
+                                    </div>
+                                    <br>
+                                <% } %>
+
+                                <% if(post.cocina == "1") { %>
+                                    <div class="input_box">
+                                        <div class="icon">
+                                            <i class="fa fa-cutlery"></i>
+                                           Cocina equipada
+                                        </div>
+                                    </div>
+                                    <br>
+                                <% } %>
+                                
                             </fieldset>
-
-                            <section class="card-header5">
-                                <br>
-                                <section class="card-header4">
-                                    <p>
-                                        Tamaño del terreno - <%= post.size %> metros cuadrados
-                                    </p>
-                                </section>
-                                <br>
-                                <section class="card-header4">
-                                    <p>
-                                        <%= post.rooms %> habitacion(es)/<%= post.fullBathrooms %> baño(s) completo(s)
-                                    </p>
-                                </section>
-                                <br>
-                                <section class="card-header4">
-                                    <p>
-                                        <%= post.extraRooms %> cuarto(s) adicional(es)/<%= post.halfBathrooms %> baño(s) medio(s)
-                                    </p>
-                                </section>
-                                <br>
-                                <section class="card-header4">
-
-                                    <p>
-                                        <%= post.floors %> planta(s)/<%= post.balcones %> balcon(es)
-                                        <br>
-                                        <%= post.parking %> espacio(s) para automóviles
-                                        <br>
-                                        <br>
-                                        <% if(post.pool == "1") { %>
-                                            Cuenta con alberca
-                                        <% } else { %>
-                                            No cuenta con alberca
-                                        <% } %>
-                                        <br>
-                                        <br>
-                                        <% if(post.coto == "1") { %>
-                                            Se encuentra dentro de fraccionamiento
-                                        <% } else { %>
-                                            No se encuentra en fraccionamiento
-                                        <% } %>
-                                    </p>
-                                </section>
-                                <br>
-                                <section class="card-header4">
-                                    <p>
-                                        <% if(post.terraza == "1") { %>
-                                            Cuenta con terraza
-                                        <% } else { %>
-                                            No cuenta con terraza
-                                        <% } %>
-                                        <br>
-                                        <br>
-                                        <% if(post.cocina == "1") { %>
-                                            Cuenta con cocina equipada
-                                        <% } else { %>
-                                            No cuenta con cocina equipada
-                                        <% } %>
-                                        <br>
-                                        <br>
-                                        <% if(post.jardin == "1") { %>
-                                            Cuenta con jardin
-                                        <% } else { %>
-                                            No cuenta con jardin
-                                        <% } %>
-                                        <br>
-                                        <br>
-                                        <% if(post.aire == "1") { %>
-                                            Cuenta con aire acondicionado
-                                        <% } else { %>
-                                            No cuenta con aire acondicionado
-                                        <% } %>
-                                    </p>
-                                </section>
-                                <br>
-                            </section>
                         </header>
 
                     </article>
