@@ -41,8 +41,8 @@ var smtpTransport = nodemailer.createTransport({
     port: 587,
     secure: false,
     auth: {
-        user: "christopher.ortega@alumnos.udg.mx",
-        pass: process.env.PASSSECRET
+        user: "ema.portal.contacto@gmail.com",
+        pass: process.env.EMAILPASS
     }
 }); 
 var rand,mailOptions,host,link;
