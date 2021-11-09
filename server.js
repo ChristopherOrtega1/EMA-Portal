@@ -182,7 +182,14 @@ MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {
     });
 
     app.get("/admin", function(req, res){
-        res.render("userLogIn/login");
+        if( req.session.admin){
+            blog.collection("posts").find().toArray(function(error, posts){
+                posts = posts.reverse();
+                res.render("admin/dashboard", {user: req.session.currentUser, superUser: req.session.super, posts: posts});
+            });
+        }else{
+            res.render("userLogIn/login");
+        }
 
     });
 
