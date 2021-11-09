@@ -67,7 +67,7 @@ MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {
     console.log("DB connected");
 
     app.get("/", function(req, res){
-        res.render("user/splash");
+        res.redirect("https://ema-portal.herokuapp.com/main");
     });
 
     app.get("/main:page?", function(req, res){
