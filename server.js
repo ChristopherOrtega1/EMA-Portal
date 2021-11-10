@@ -25,7 +25,7 @@ const { generateUploadURL } = require( './s3');
 
 const { format } = require("path");
 var algorithm = 'aes-256-ctr';
-var password = "'d6F3Efeqs'";
+var password = process.env.CRYPTKEY;
 
 
 
