@@ -78,146 +78,185 @@
                 </div>
 
                 <br>
-                <fieldset class="gllpLatlonPicker">
-                    <div class="gllpMap">Google Maps</div>
-                    <br/>
-                    <div class="card-header3">
-                    Latitud
-                     <input type="text" class="gllpLatitude" name="x" id= "x" value="<%= post.x %>" required style="width:200px"/>
-                        Longitud
-                     <input type="text" class="gllpLongitude" name="y" id="y" value="<%= post.y %>" required style="width:200px"/> 
+
+                <div class="finalContainer">
+                    <br>
+                    <div class="flex-container" style="justify-content: center; align-items: center;">
+                        <div class="flex-column">
+                            <div class="form-group">
+                                <fieldset class="gllpLatlonPicker">
+                                    <div class="gllpMap">Google Maps</div>
+    
+                                    <div class="flex-container" style="justify-content: center; align-items: center;">
+                                            
+                                        <input type="number" step="any" class="gllpLatitude" name="x" id= "x" value="<%= post.x %>" required style="width:200px"/>
+                                            
+                                        <input type="number" step="any" class="gllpLongitude" name="y" id="y" value="<%= post.y %>" required style="width:200px"/> 
+                                    </div>
+                                </fieldset>
+                                <br>
+                                </div>
+                        </div>
+                        <div class="flex-column">
+                            <div class="flex-container" style="justify-content: center; align-items: center;">
+                                <div class="flex-column">
+                                    <label for="rooms"><i class="fas fa-bed" style="color: grey;"></i></label>
+                                    <input type="number" name="rooms"  placeholder="Recamaras" id="rooms" value="<%= post.rooms %>" min="0" required style="text-align: center;width:200px">
+                                </div>
+                                <div class="flex-column">
+                                    <label for="fullBathrooms"> .<i class="fas fa-shower" style="color: grey;"></i></label>
+                                    <input type="number" name="fullBathrooms"  placeholder="No. Baños" id="fullBathrooms"  value="<%= post.fullBathrooms %>" min="0" required style="text-align: center;width:200px">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="flex-container" style=" align-items: center; justify-content: center;">
+                                <div class="flex-column">
+                                    <label for="parking">: <i class="fas fa-car" style="color: grey;"></i></label>
+                                    <input type="number" name="parking"  placeholder="No. Estacionamientos" id="parking" value="<%= post.parking %>" style="text-align: center;width:200px" min="0" required>
+                                </div>
+                                <div class="flex-column">
+    
+                                    <label for="size">: <i class="fas fa-border-style" style="color: grey;"></i></label>
+                                    <input type="number" name="size"  placeholder="Terreno" id="size" value="<%= post.size %>" style="text-align: center;width:200px" min="30" required>
+                                    
+                                </div>
+                                <div class="flex-column">
+                                    <label for="halfBathrooms">: <i class="fas fa-toilet" style="color: grey;"></i></label>
+                                    <input type="number" name="halfBathrooms"  placeholder="No. Medios Baños" value="<%= post.halfBathrooms %>" id="halfBathrooms" style="text-align: center;width:200px"  min="0" required>
+                                </div>
+    
+    
+                            </div>
+                            <br>
+                            <div class="flex-container" style=" align-items: center; justify-content: center;">
+                                <div class="flex-column">
+                                    <label for="floors">: <i class="fas fa-building" style="color: grey;"></i></label>
+                                    <input type="number" name="floors"  placeholder="Pisos" id="floors" value="<%= post.floors %>" style="text-align: center;width:200px" min="1" required>
+                                </div>
+                                <div class="flex-column">
+    
+                                    <label for="extraRooms">: <i class="fas fa-door-closed" style="color: grey;"></i></label>
+                                    <input type="number" name="extraRooms"  placeholder="Cuartos Extra" id="extraRooms" value="<%= post.extraRooms %>" style="text-align: center;width:200px"  min="0" required>
+                                    
+                                </div>
+                                <div class="flex-column">
+                                    <label for="balcones">: <i class="fas fa-person-booth" style="color: grey;"></i></label>
+                                    <input type="number" name="balcones"  placeholder="No. Balcones" id="balcones" value="<%= post.balcones %>" style="text-align: center;width:200px"  min="0" required>
+                                </div>
+                 
+                            </div>
+    
+                            <br>
+                            <div class="card-header3" style="margin-left: 7%;margin-right: 7%;">
+    
+                                <label>¿Se cuenta con alberca? </label>
+                                <% if (post.pool == "1") { %>
+                                    <label for="poolYes">Si</label>
+                                    <input type="radio" id="poolYes" name="pool" value=1 checked>
+                                    <label for="poolNo">No</label>
+                                    <input type="radio" id="poolNo" name="pool" value=0 >
+                                <% } else { %>
+                                    <label for="poolYes">Si</label>
+                                    <input type="radio" id="poolYes" name="pool" value=1 >
+                                    <label for="poolNo">No</label>
+                                    <input type="radio" id="poolNo" name="pool" value=0 checked>
+            
+                                <% } %>
+                                <br>
+                
+            
+                                <label>¿Se encuentra en coto? </label>
+                                <% if (post.coto == "1") { %>
+                                    <input type="radio" id="cotoYes" name="coto" value=1 checked>
+                                    <label for="cotoYes">Si</label>
+                                    <input type="radio" id="cotoNo" name="coto" value=0>
+                                    <label for="cotoNo">No</label>
+                                <% } else { %>
+                                    <input type="radio" id="cotoYes" name="coto" value=1>
+                                    <label for="cotoYes">Si</label>
+                                    <input type="radio" id="cotoNo" name="coto" value=0 checked>
+                                    <label for="cotoNo">No</label>
+            
+                                <% } %>
+                                <br>
+                
+                                
+                
+                                <label>¿Se cuenta con terraza? </label>
+                                <% if (post.terraza == "1") { %>
+                                    <input type="radio" id="terrazaYes" name="terraza" value=1 checked>
+                                    <label for="terrazaYes">Si</label>
+                                    <input type="radio" id="terrazaNo" name="terraza" value=0>
+                                    <label for="terrazaNo">No</label>
+                                <% } else { %>
+                                    <input type="radio" id="terrazaYes" name="terraza" value=1>
+                                    <label for="terrazaYes">Si</label>
+                                    <input type="radio" id="terrazaNo" name="terraza" value=0 checked>
+                                    <label for="terrazaNo">No</label>
+            
+                                <% } %>
+                                <br>
+            
+                                <label>¿Se cuenta con cocina equipada? </label>
+                                <% if (post.cocina == "1") { %>
+                                    <input type="radio" id="cocinaYes" name="cocina" value=1 checked>
+                                    <label for="cocinaYes">Si</label>
+                                    <input type="radio" id="cocinaNo" name="cocina" value=0>
+                                    <label for="cocinaNo">No</label>
+                                <% } else { %>
+                                    <input type="radio" id="cocinaYes" name="cocina" value=1>
+                                    <label for="cocinaYes">Si</label>
+                                    <input type="radio" id="cocinaNo" name="cocina" value=0 checked>
+                                    <label for="cocinaNo">No</label>
+            
+                                <% } %>
+                                <br>
+            
+                                
+                                <label>¿Se cuenta con jardin? </label>
+                                <% if (post.jardin == "1") { %>
+                                    <input type="radio" id="jardinYes" name="jardin" value=1 checked>
+                                    <label for="jardinYes">Si</label>
+                                    <input type="radio" id="jardinNo" name="jardin" value=0 >
+                                    <label for="jardinNo">No</label>
+                                <% } else { %>
+                                    <input type="radio" id="jardinYes" name="jardin" value=1>
+                                    <label for="jardinYes">Si</label>
+                                    <input type="radio" id="jardinNo" name="jardin" value=0 checked>
+                                    <label for="jardinNo">No</label>
+            
+                                <% } %>
+                                <br>
+                
+            
+                                <label>¿Se cuenta con aire acondicionado? </label>
+                                <% if (post.aire == "1") { %>
+                                    <input type="radio" id="aireYes" name="aire" value=1 checked>
+                                    <label for="aireYes">Si</label>
+                                    <input type="radio" id="aireNo" name="aire" value=0 >
+                                    <label for="aireNo">No</label>
+                                <% } else { %>
+                                    <input type="radio" id="aireYes" name="aire" value=1>
+                                    <label for="aireYes">Si</label>
+                                    <input type="radio" id="aireNo" name="aire" value=0 checked>
+                                    <label for="aireNo">No</label>
+            
+                                <% } %>
+                                
+                            </div>
+    
+    
+                        </div>
                     </div>
-                    <br/>
-                </fieldset>
-                <div class="card-header3">
-                    <label for="rooms">Cantidad de habitaciones: </label>
-                    <input type="number" name="rooms"  placeholder="Cantidad" id="rooms" style="width:100px" value="<%= post.rooms %>" min="0" required>
-                    <br>
-                    <label for="fullBathrooms">Cantidad de baños completos: </label>
-                    <input type="number" name="fullBathrooms"  placeholder="Cantidad" id="fullBathrooms" style="width:100px" value="<%= post.fullBathrooms %>"  min="0" required>
-                    <br>
-                    <label for="parking">Espacios para automóviles: </label>
-                    <input type="number" name="parking"  placeholder="Cantidad" id="parking" style="width:100px" value="<%= post.parking %>"  min="0" required>
-                    <br>
-                    <label for="size">Tamaño del terreno: </label>
-                    <input type="number" name="size"  placeholder="Tamaño" id="size" style="width:100px" value="<%= post.size %>"  min="30" required>
-                    <br>
-                    <label for="halfBathrooms">Cantidad de medios baños: </label>
-                    <input type="number" name="halfBathrooms"  placeholder="Cantidad" id="halfBathrooms" style="width:100px" value="<%= post.halfBathrooms %>"  min="0" required>
-                    <br>
-    
-                    <label>¿Se cuenta con alberca? </label>
-                    <% if (post.pool == "1") { %>
-                        <label for="poolYes">Si</label>
-                        <input type="radio" id="poolYes" name="pool" value=1 checked>
-                        <label for="poolNo">No</label>
-                        <input type="radio" id="poolNo" name="pool" value=0 >
-                    <% } else { %>
-                        <label for="poolYes">Si</label>
-                        <input type="radio" id="poolYes" name="pool" value=1 >
-                        <label for="poolNo">No</label>
-                        <input type="radio" id="poolNo" name="pool" value=0 checked>
-
-                    <% } %>
-                    <br>
-    
-                    <label for="floors">Cantidad de pisos: </label>
-                    <input type="number" name="floors"  placeholder="Cantidad" id="floors" style="width:100px" value="<%= post.floors %>"  min="1" required>
-                    <br>
-    
-
-                    <label>¿Se encuentra en coto? </label>
-                    <% if (post.coto == "1") { %>
-                        <input type="radio" id="cotoYes" name="coto" value=1 checked>
-                        <label for="cotoYes">Si</label>
-                        <input type="radio" id="cotoNo" name="coto" value=0>
-                        <label for="cotoNo">No</label>
-                    <% } else { %>
-                        <input type="radio" id="cotoYes" name="coto" value=1>
-                        <label for="cotoYes">Si</label>
-                        <input type="radio" id="cotoNo" name="coto" value=0 checked>
-                        <label for="cotoNo">No</label>
-
-                    <% } %>
-                    <br>
-    
-                    <label for="extraRooms">Cantidad de cuartos adicionales: </label>
-                    <input type="number" name="extraRooms"  placeholder="Cantidad" id="extraRooms" style="width:100px" value="<%= post.extraRooms %>"  min="0" required>
-                    <br>
-    
-                    <label for="balcones">Cantidad de balcones: </label>
-                    <input type="number" name="balcones"  placeholder="Cantidad" id="balcones" style="width:100px" value="<%= post.balcones %>"  min="0" required>
-                    <br>
-                    
-    
-                    <label>¿Se cuenta con terraza? </label>
-                    <% if (post.terraza == "1") { %>
-                        <input type="radio" id="terrazaYes" name="terraza" value=1 checked>
-                        <label for="terrazaYes">Si</label>
-                        <input type="radio" id="terrazaNo" name="terraza" value=0>
-                        <label for="terrazaNo">No</label>
-                    <% } else { %>
-                        <input type="radio" id="terrazaYes" name="terraza" value=1>
-                        <label for="terrazaYes">Si</label>
-                        <input type="radio" id="terrazaNo" name="terraza" value=0 checked>
-                        <label for="terrazaNo">No</label>
-
-                    <% } %>
-                    <br>
-
-                    <label>¿Se cuenta con cocina equipada? </label>
-                    <% if (post.cocina == "1") { %>
-                        <input type="radio" id="cocinaYes" name="cocina" value=1 checked>
-                        <label for="cocinaYes">Si</label>
-                        <input type="radio" id="cocinaNo" name="cocina" value=0>
-                        <label for="cocinaNo">No</label>
-                    <% } else { %>
-                        <input type="radio" id="cocinaYes" name="cocina" value=1>
-                        <label for="cocinaYes">Si</label>
-                        <input type="radio" id="cocinaNo" name="cocina" value=0 checked>
-                        <label for="cocinaNo">No</label>
-
-                    <% } %>
-                    <br>
-
-                    
-                    <label>¿Se cuenta con jardin? </label>
-                    <% if (post.jardin == "1") { %>
-                        <input type="radio" id="jardinYes" name="jardin" value=1 checked>
-                        <label for="jardinYes">Si</label>
-                        <input type="radio" id="jardinNo" name="jardin" value=0 >
-                        <label for="jardinNo">No</label>
-                    <% } else { %>
-                        <input type="radio" id="jardinYes" name="jardin" value=1>
-                        <label for="jardinYes">Si</label>
-                        <input type="radio" id="jardinNo" name="jardin" value=0 checked>
-                        <label for="jardinNo">No</label>
-
-                    <% } %>
-                    <br>
-    
-
-                    <label>¿Se cuenta con aire acondicionado? </label>
-                    <% if (post.aire == "1") { %>
-                        <input type="radio" id="aireYes" name="aire" value=1 checked>
-                        <label for="aireYes">Si</label>
-                        <input type="radio" id="aireNo" name="aire" value=0 >
-                        <label for="aireNo">No</label>
-                    <% } else { %>
-                        <input type="radio" id="aireYes" name="aire" value=1>
-                        <label for="aireYes">Si</label>
-                        <input type="radio" id="aireNo" name="aire" value=0 checked>
-                        <label for="aireNo">No</label>
-
-                    <% } %>
-                    <br>
-                    
                 </div>
+
+
                 <br>
                 <div class="card-header3">
                     <input type="submit" class="btn btn-info" value="Actualizar!" onsubmit="this.disabled=true;load_page('form-id');return false;"/>
                     <br>
                 </div>
+                <br>
             </form>
 
         </div>
