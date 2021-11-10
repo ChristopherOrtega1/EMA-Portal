@@ -7070,6 +7070,28 @@ textarea.form-control-lg {
   flex-direction: column !important;
 }
 
+.flex-container {
+  display:flex;
+  flex-direction: row; 
+  flex-wrap: wrap;
+  
+}
+.flex-item-left {
+  background-color: #f1f1f1;
+  padding: 2px 5px;
+  flex: 33%;
+}
+
+.flex-item-center {
+  background-color: #f1f1f1;
+  padding: 2px 5px;
+  flex: 33%;
+}
+.flex-item-right {
+  background-color: #f1f1f1;
+  padding: 2px 5px;
+  flex: 33%;
+}
 .flex-row-reverse {
   flex-direction: row-reverse !important;
 }
