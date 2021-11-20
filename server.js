@@ -61,12 +61,15 @@ function encrypt(text){
     return dec;
   }
 
+//MongoClient.connect("mongodb://localhost:27017", {useNewUrlParser: true}, <- Ambito de desarrollo 
 MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {useNewUrlParser: true},
     function (error, client){
+    //var blog = client.db("blog"); <- ambito de desarrollo
     var blog = client.db("EMA");
     console.log("DB connected");
 
     app.get("/", function(req, res){
+        //res.redirect("/main"); <- ambito de desarrollo
         res.redirect("https://ema-portal.herokuapp.com/main");
     });
 
