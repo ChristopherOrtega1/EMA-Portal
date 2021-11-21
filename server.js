@@ -24,18 +24,19 @@ var crypto = require('crypto');
 const { generateUploadURL } = require( './s3');
 
 const { format } = require("path");
-var algorithm = 'aes-256-ctr';
+var algorithm = 'aes-256-ctr'; //algoritmo para cifrar
 var password = process.env.CRYPTKEY;
 
 
-
+//Instancia de sesion
 app.use(session({
     key: "admin",
     secret: "any random string",
-    currentUser:"",
-    super:""
+    currentUser:"", //nombre de usuario
+    super:"" // tipo de usuario
 }));
 
+//configuracion para enviar correos con nodemailer
 var smtpTransport = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 587,
@@ -46,7 +47,7 @@ var smtpTransport = nodemailer.createTransport({
     }
 }); 
 var rand,mailOptions,host,link;
-
+//funcion para encriptar strings
 function encrypt(text){
     var cipher = crypto.createCipher(algorithm,password)
     var crypted = cipher.update(text,'utf8','hex')
@@ -62,18 +63,18 @@ function encrypt(text){
   }
 
 //MongoClient.connect("mongodb://localhost:27017", {useNewUrlParser: true}, <- Ambito de desarrollo 
-MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {useNewUrlParser: true},
+MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {useNewUrlParser: true}, //conexion a la base de datos
     function (error, client){
     //var blog = client.db("blog"); <- ambito de desarrollo
     var blog = client.db("EMA");
     console.log("DB connected");
 
-    app.get("/", function(req, res){
+    app.get("/", function(req, res){ //la ruta default muestra las ultimas 8 casas en el dataset
         //res.redirect("/main"); <- ambito de desarrollo
         res.redirect("https://ema-portal.herokuapp.com/main");
     });
 
-    app.get("/main:page?", function(req, res){
+    app.get("/main:page?", function(req, res){ //mostrar 8 casas dependiendo de paginacion
         if(req.params.page == null)
         {
             page=1;
@@ -94,7 +95,7 @@ MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {
             res.render("user/home", {posts: posts, page:page});
         });
     });
-    app.get("/get-posts/:start/:limit", function(req, res){
+    app.get("/get-posts/:start/:limit", function(req, res){ // funcion para obtener casas del dataset en cierto rango
         blog.collection("posts").find().sort({
             "_id": -1
         }).skip(parseInt(req.params.start)).limit(parseInt(req.params.limit)).toArray(
@@ -105,7 +106,7 @@ MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {
 
 
 
-    app.post("/main:page?", function(req, res){
+    app.post("/main:page?", function(req, res){ //ruta para realizar busqueda dependiendo del municipio, valor minimo y valor maximo
         blog.collection("posts").find().toArray(function(error, posts){
             console.log(req.body);
             posts = posts.reverse();
@@ -124,7 +125,7 @@ MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {
 
 
     
-    app.get("/posts/:id", function (req, res){
+    app.get("/posts/:id", function (req, res){ //ruta para mostrar una publicacion especifica
         console.log("searching");
         blog.collection("posts").findOne({"_id": ObjectId(req.params.id)}, function (
             error, post) {
@@ -133,7 +134,7 @@ MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {
         });
     });
 
-    app.post("/posts/:id", function (req, res) {
+    app.post("/posts/:id", function (req, res) { //ruta para hacer busqueda desde post especifico
         blog.collection("posts").find().toArray(function(error, posts){
             console.log(req.body);
             posts = posts.reverse();
@@ -142,16 +143,16 @@ MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {
         });
 
     });
-
-    app.get('/s3Url', async(req, res) => {
+    /*
+    app.get('/s3Url', async(req, res) => { 
         console.log("url")
         const url =  await generateUploadURL();
         console.log(url)
         res.send({url})
-    })
+    })*/
 
 
-    app.post("/do-upload-image", async function(req, res){
+    app.post("/do-upload-image", async function(req, res){ //ruta que contacta a AWS para obtener un JSON con URL para subir imagen a bucket 
         console.log("Sent");
         const url =  await generateUploadURL(req.body.name, req.body.type);
         console.log(url);
@@ -159,6 +160,7 @@ MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {
 
     });
 
+    //ruta para redireccionar hacia dashboard de usuario, solo si ya ha ingresado sus credenciales
     app.get("/admin/dashboard", function (req, res){
         if( req.session.admin){
             blog.collection("posts").find().toArray(function(error, posts){
@@ -170,6 +172,7 @@ MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {
         }
     });
 
+    //ruta para publicar una nueva casa
     app.get("/admin/posts", function (req, res){
         if( req.session.admin){
             console.log(req.session.currentUser);
@@ -178,12 +181,12 @@ MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {
             res.redirect("/admin")
         }
     });
-
+    //ruta para terminar sesion actual
     app.get("/do-logout", function (req, res){
         req.session.destroy();
         res.redirect("/admin");
     });
-
+    //ruta para poder hacer login 
     app.get("/admin", function(req, res){
         if( req.session.admin){
             blog.collection("posts").find().toArray(function(error, posts){
@@ -195,12 +198,12 @@ MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {
         }
 
     });
-
+    //ruta para crear nuevo usuario
     app.get("/create-user", function(req, res){
         res.render("userLogIn/createUser");
 
     });
-
+    //Se valida si el las credenciales ingresadas por el usuario corresponden a una cuenta activa
     app.post("/do-admin-login", function(req, res){
         console.log(encrypt(req.body.password));
 
@@ -219,7 +222,8 @@ MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {
             
         });
     });
-
+    //se verifica los datos ingresados por usuario antes de crear nueva cuenta, no se permite correo o usernames repetidos, la cuenta no esta 
+    //verificada hasta que el usuario verique la cuenta con el link enviado a su correo
     app.post("/do-user-create", function(req, res){
         blog.collection("admins").findOne({"username": req.body.username}, function(error, admin){
             if(admin != null) {
@@ -262,7 +266,7 @@ MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {
 }
         });
     });
-
+    //publicar nueva casa, si el usuario permitio que se use su casa en para el modulo de IA, se agrega al dataset de entrenamiento tambien
     app.post("/admin/posts", function(req, res) {
         if(req.body.image != "kill"){
             blog.collection("posts").insertOne(req.body, function(error, document){
@@ -300,7 +304,7 @@ MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {
         }
 
     });
-
+    //ruta para editar una publicacion, solo por el usuario que publico la casa originalmente, o por un superusuario
     app.get("/posts/edit/:id", function(req, res){
         if(req.session.admin) {
             console.log(req.session.admin.username);
@@ -320,7 +324,7 @@ MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {
             res.redirect("/admin");
         }
     });
-
+    //editar publicacion 
     app.post("/do-edit-post", function(req, res){
         blog.collection("casas").updateOne({
             "post_id": ObjectId(req.body._id)
@@ -383,7 +387,7 @@ MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {
     });
 
 
-
+    //funcion para eliminar publicacion logicamente, solo se llama desde el dashboard del usuario que creo la publicacion o de un superusuario
     app.post("/do-delete", function (req, res) {
         if( req.session.admin){
 
@@ -398,7 +402,7 @@ MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {
             res.redirect("/admin");
         }
     });
-
+    //funcion para eliminar una casas completamente, solo puede se puede hacer por un superusuario
     app.post("/do-delete2", function (req, res) {
         if( req.session.super == "1"){
 
@@ -416,7 +420,7 @@ MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {
     });
 
 
-
+    //ruta para verificar la cuenta de usuario nuevo desde correo
     app.get('/verificar',function(req,res){
             console.log(req.query.authKey);
             res.redirect("/admin")
@@ -434,11 +438,11 @@ MongoClient.connect("mongodb+srv://dbEMA:ema2021b@ema.loaxu.mongodb.net/test", {
                 console.log("email is not verified");
             }*/
         });
-
+        //ruta de error por default
         app.get('*', function(req, res){
             res.render("user/error");
           });
-
+    // cada vez que un usuario elimina o agrega una publicacion, se actualizan las casas en todas las sesiones abiertas con websockets
     io.on("connection", function(socket){
 
         socket.on("new_post", function(formData){

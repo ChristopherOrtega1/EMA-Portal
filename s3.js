@@ -9,6 +9,8 @@ const crypto = require('crypto');
 const { promisify } = require( 'util');
 const randomBytes = promisify(crypto.randomBytes)
 
+//configuracion de conexion a AWS
+
 AWS.config.update({
     accessKeyId: AWS_ACCESS_KEY,
     secretAccessKey: AWS_SECRET_KEY,
@@ -18,7 +20,7 @@ AWS.config.update({
 }); 
 var s3 = new AWS.S3();
 
-
+//funcion para generar un URL con el cual se puede subir una imagen hacia el bucket de S3
  async function generateUploadURL(name, type) {
     const rawBytes = randomBytes(16)
     const imageName = rawBytes.toString('hex')

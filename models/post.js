@@ -1,6 +1,7 @@
-var mongoose = require('mongoose')
+var mongoose = require('mongoose') //Mongoose es el ORM asociado con MongoDB
 var Schema = mongoose.Schema
 
+//esquema para crear la tabla de las publicaciones
 var schema = new Schema({
     title: {type:String, required: true},
     price: {type:String, required: true},

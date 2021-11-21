@@ -1,8 +1,8 @@
 var Post = require('../models/post');
 
 //UNICAMENTE USARSE EN AMBITO DE DESARROLLO
-
-var mongoose = require('mongoose');
+//Seeder para generar 5 casas aleatorias a la base de datos
+var mongoose = require('mongoose'); //Mongoose es el ORM asociado con MongoDB
 var randomSentence = require('random-sentence');
 
 mongoose.connect('mongodb://localhost:27017/blog')
